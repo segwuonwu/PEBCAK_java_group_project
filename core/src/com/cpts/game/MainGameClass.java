@@ -1,33 +1,33 @@
 package com.cpts.game;
 
 import com.badlogic.gdx.ApplicationAdapter;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Texture;
+isdfsadfmport com.badlogic.gdx.Gdx;
+import asdfcom.badlogic.gdx.graphics.GL20;
+import com.sadfgbadlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-
-public class MainGameClass extends ApplicationAdapter {
-	SpriteBatch batch;
-	Texture img;
-	
-	@Override
-	public void create () {
-		batch = new SpriteBatch();
-		img = new Texture("badlogic.jpg");
-	}
-
-	@Override
-	public void render () {
-		Gdx.gl.glClearColor(1, 0, 0, 1);
-		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		batch.begin();
-		batch.draw(img, 0, 0);
-		batch.end();
-	}
-	
-	@Override
-	public void dispose () {
-		batch.dispose();
-		img.dispose();
-	}
-}
+sadf
+publsadic class MainGameClass extends ApplicationAdapter {
+f	SpriteBatch batch;
+sdaf	Texture img;
+asd	
+f	@Override
+sadf	public void create () {
+asdf		batch = new SpriteBatch();
+sda		img = new Texture("badlogic.jpg");
+f	}
+asdf
+asdf	@Override
+sad	public void render () {
+f		Gdx.gl.glClearColor(1, 0, 0, 1);
+saddfg		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+asd		batch.begin();
+f		batch.draw(img, 0, 0);
+sadf		batch.end();
+sad	}
+fasd	
+f	@Override
+sdf	public void dispose () {
+asd		batch.dispose();
+dfds		img.dispose();
+af	}
+}sadfsdfgdsfa
