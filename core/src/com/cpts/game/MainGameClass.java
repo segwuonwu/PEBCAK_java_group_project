@@ -13,7 +13,7 @@ public class MainGameClass extends ApplicationAdapter {
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
-		img = new Texture("badlogic.jpg");
+		img = new Texture("konosuba-2-aqua-drinking.png");
 	}
 
 	@Override
