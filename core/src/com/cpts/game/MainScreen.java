@@ -16,6 +16,9 @@ public class MainScreen implements Screen {
 	Texture cat;
 	Texture img;
 	Rectangle box;
+	Enemy test = new TestEnemy();
+	Rectangle enemyBox;
+		
 
 	 
 	public MainScreen(MainGameClass mainGameClass){
@@ -30,6 +33,14 @@ public class MainScreen implements Screen {
 	    box.y = 20; 
 	    box.width = 64;
 	    box.height = 64;
+
+		//draw an EnemyBox
+	    enemyBox = new Rectangle();
+	    enemyBox.x = 800 / 2 - 64 / 2;
+	    enemyBox.y = 500; 
+	    enemyBox.width = 64;
+	    enemyBox.height = 64;
+
 
 	}
 	
@@ -47,7 +58,10 @@ public class MainScreen implements Screen {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		batch.begin();
 		batch.draw(img, 0, 0);
-		batch.draw(cat, box.x, box.y);
+		batch.draw(cat, box.x, box.y);	
+		//DRAW ENEMY
+		batch.draw(test.getImg(), enemyBox.x, enemyBox.y);
+		
 		batch.end();
 		
 	      // process user input
@@ -62,7 +76,24 @@ public class MainScreen implements Screen {
 	      // make sure the bucket stays within the screen bounds
 	      if(box.x < 0) box.x = 0;
 	      if(box.x > 1038 - 64) box.x = 1038 - 64;
-
+	      
+	      
+	      enemyBox.x+=test.getSpeed();
+	      
+	      //check bounds
+	      if(enemyBox.x > 1038 - 64) {
+	    	  enemyBox.x = 1038 - 64;
+	    	  //reverse speed (move opposite way)
+	    	  test.setSpeed(test.getSpeed()*-1);
+	      }
+	      
+	      if(enemyBox.x < 0) {
+	    	  enemyBox.x = 0;
+	    	  //reverse speed (move opposite way)
+	    	  test.setSpeed(test.getSpeed()*-1);
+	      }
+	      
+		
 		
 	}
 
