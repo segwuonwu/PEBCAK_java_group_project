@@ -64,15 +64,16 @@ public class MainScreen implements Screen {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		batch.begin();
 		batch.draw(img, 0, 0);
-<<<<<<< HEAD
-		batch.draw(cat, box.x, box.y);
+
+		//batch.draw(cat, box.x, box.y);
 		batch.draw(player.sprite, player.sprite.getX(), player.sprite.getY());
-=======
-		batch.draw(cat, box.x, box.y);	
+
+		//batch.draw(cat, box.x, box.y);	
 		//DRAW ENEMY
-		batch.draw(test.getImg(), enemyBox.x, enemyBox.y);
+	    
+	    batch.draw(test.getImg(), enemyBox.x, enemyBox.y);
 		
->>>>>>> 96d32d0ca1d25b04d7e3a7b4b4f7a62b81f5951e
+
 		batch.end();
 		
 	      // process user input
