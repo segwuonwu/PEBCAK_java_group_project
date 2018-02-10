@@ -16,13 +16,13 @@ public class MainScreen implements Screen {
 	Texture cat;
 	Texture img;
 	Rectangle box;
-<<<<<<< HEAD
+
 	Player player;
-=======
+
 	Enemy test = new TestEnemy();
 	Rectangle enemyBox;
 		
->>>>>>> 96d32d0ca1d25b04d7e3a7b4b4f7a62b81f5951e
+
 
 	 
 	public MainScreen(MainGameClass mainGameClass){
