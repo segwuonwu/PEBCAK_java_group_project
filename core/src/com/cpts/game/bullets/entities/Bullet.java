@@ -1,4 +1,4 @@
-package com.mygdx.entities;
+package com.cpts.game.bullets.entities;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
@@ -49,9 +49,9 @@ public class Bullet {
 		//dT += deltaTime;
 		
 		//System.out.println(distanceToTravel);
-		if (TimeUtils.timeSinceMillis(startTime) < 300) {
+		//if (TimeUtils.timeSinceMillis(startTime) < 300) {
 			y += SPEED * deltaTime;
-		} 
+		//} 
 		
 		//if (y >= 200  && dT >= WAIT_TIME) {
 			//dT -= WAIT_TIME;

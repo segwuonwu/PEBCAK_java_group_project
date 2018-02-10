@@ -1,4 +1,4 @@
-package com.mygdx.game.screens;
+package com.cpts.game.bullets.screens;
 
 import java.util.ArrayList;
 
@@ -9,8 +9,8 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.mygdx.entities.Bullet;
-import com.mygdx.game.MyGdxGame;
+import com.cpts.game.bullets.entities.Bullet;
+import com.cpts.game.bullets.MyGdxGame;
 
 public class GameScreen implements Screen {
 	

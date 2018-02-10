@@ -1,10 +1,10 @@
-package com.mygdx.game.screens;
+package com.cpts.game.bullets.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
-import com.mygdx.game.MyGdxGame;
+import com.cpts.game.bullets.MyGdxGame;
 
 
 

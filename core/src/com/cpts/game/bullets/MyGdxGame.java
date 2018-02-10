@@ -1,4 +1,4 @@
-package com.mygdx.game;
+package com.cpts.game.bullets;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Game;
@@ -7,8 +7,8 @@ import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.mygdx.game.screens.GameScreen;
-import com.mygdx.game.screens.MainScreen;
+import com.cpts.game.bullets.screens.GameScreen;
+import com.cpts.game.bullets.screens.MainScreen;
 
 public class MyGdxGame extends Game {
 	
