@@ -16,7 +16,7 @@ public class MainScreen implements Screen {
 	Texture cat;
 	Texture img;
 	Rectangle box;
-	Enemy test = new TestEnemy();
+	Enemy test = new EnemyFinalBoss();
 	Rectangle enemyBox;
 		
 
@@ -36,11 +36,10 @@ public class MainScreen implements Screen {
 
 		//draw an EnemyBox
 	    enemyBox = new Rectangle();
-	    enemyBox.x = 800 / 2 - 64 / 2;
+	    enemyBox.x = (Gdx.graphics.getWidth() / 2) - (test.getImg().getWidth() / 2);
 	    enemyBox.y = 500; 
-	    enemyBox.width = 64;
-	    enemyBox.height = 64;
-
+	    enemyBox.width = test.getImg().getWidth();
+	    enemyBox.height = test.getImg().getWidth();
 
 	}
 	
@@ -58,43 +57,45 @@ public class MainScreen implements Screen {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		batch.begin();
 		batch.draw(img, 0, 0);
-		batch.draw(cat, box.x, box.y);	
-		//DRAW ENEMY
+		batch.draw(cat, box.x, box.y);
+
+		// DRAW ENEMY
 		batch.draw(test.getImg(), enemyBox.x, enemyBox.y);
-		
 		batch.end();
+
+		// process user input
+		if (Gdx.input.isTouched()) {
+			Vector3 touchPos = new Vector3();
+			touchPos.set(Gdx.input.getX(), Gdx.input.getY(), 0);
+			box.x = touchPos.x - 64 / 2;
+		}
 		
-	      // process user input
-	      if(Gdx.input.isTouched()) {
-	         Vector3 touchPos = new Vector3();
-	         touchPos.set(Gdx.input.getX(), Gdx.input.getY(), 0);
-	         box.x = touchPos.x - 64 / 2;
-	      }
-	      if(Gdx.input.isKeyPressed(Keys.LEFT)) box.x -= 200 * Gdx.graphics.getDeltaTime();
-	      if(Gdx.input.isKeyPressed(Keys.RIGHT)) box.x += 200 * Gdx.graphics.getDeltaTime();
-	      
-	      // make sure the bucket stays within the screen bounds
-	      if(box.x < 0) box.x = 0;
-	      if(box.x > 1038 - 64) box.x = 1038 - 64;
-	      
-	      
-	      enemyBox.x+=test.getSpeed();
-	      
-	      //check bounds
-	      if(enemyBox.x > 1038 - 64) {
-	    	  enemyBox.x = 1038 - 64;
-	    	  //reverse speed (move opposite way)
-	    	  test.setSpeed(test.getSpeed()*-1);
-	      }
-	      
-	      if(enemyBox.x < 0) {
-	    	  enemyBox.x = 0;
-	    	  //reverse speed (move opposite way)
-	    	  test.setSpeed(test.getSpeed()*-1);
-	      }
-	      
-		
-		
+		if (Gdx.input.isKeyPressed(Keys.LEFT))
+			box.x -= 200 * Gdx.graphics.getDeltaTime();
+		if (Gdx.input.isKeyPressed(Keys.RIGHT))
+			box.x += 200 * Gdx.graphics.getDeltaTime();
+
+		// make sure the bucket stays within the screen bounds
+		if (box.x < 0)
+			box.x = 0;
+		if (box.x > Gdx.graphics.getWidth() - 64)
+			box.x = Gdx.graphics.getWidth() - box.width;
+
+		// enemy
+		enemyBox.x += test.getSpeed();
+		System.out.println();
+		// check bounds
+		if (enemyBox.x > Gdx.graphics.getWidth() - enemyBox.getWidth()) {
+			enemyBox.x = Gdx.graphics.getWidth() - enemyBox.getWidth();
+			// reverse speed (move opposite way)
+			System.out.println(enemyBox.x);
+			test.reverseSpeed();
+		}
+
+		if (enemyBox.x < 0) {
+			enemyBox.x = 0;
+			test.reverseSpeed();
+		}
 	}
 
 	@Override

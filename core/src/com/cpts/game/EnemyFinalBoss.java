@@ -2,12 +2,12 @@ package com.cpts.game;
 
 import com.badlogic.gdx.graphics.Texture;
 
-public class TestEnemy extends Enemy {
-
-	public TestEnemy() {
+public class EnemyFinalBoss extends Enemy {
+	
+	public EnemyFinalBoss() {
 		//hard coded test enemy
 		//add unique functionality to this class as well
-		super("TestEnemy", new Texture("minion.jpg"), 100, 3);
+		super("EnemyFinalBoss", new Texture("EnemyFinalBoss.jpg"), 100, 3);
 	}
 	
 }
