@@ -17,6 +17,7 @@ public class MainGameClass extends Game {
 	private MenuScreen menuScreen;
 	private MainScreen mainScreen;
 	private EndScreen endScreen;
+	
 	 
 	public final static int MENU = 0;
 	public final static int PREFERENCES = 1;
@@ -27,6 +28,7 @@ public class MainGameClass extends Game {
 	public void create () {
 		loadingScreen = new LoadingScreen(this);
 		setScreen(loadingScreen);
+		
 	}
 	
 	public void changeScreen(int screen){
