@@ -1,5 +1,7 @@
 package com.cpts.game;
 
+import java.util.ArrayList;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.Screen;
@@ -11,6 +13,9 @@ import com.badlogic.gdx.math.Vector3;
 
 public class MainScreen implements Screen {
 
+	public static final float SHOOT_WAIT_TIME = 0.3f; // time in between bullets fired
+	float y, x; // to test coordinates of bullets
+	
 	private MainGameClass parent;
 	SpriteBatch batch;
 	Texture cat;
@@ -22,8 +27,9 @@ public class MainScreen implements Screen {
 	Enemy test = new TestEnemy();
 	Rectangle enemyBox;
 		
+	float shootTimer; // for timing between pressing space and shooting bullets
 
-
+	ArrayList<Bullet> bullets; // store bullets created
 	 
 	public MainScreen(MainGameClass mainGameClass){
 		parent = mainGameClass;
@@ -45,7 +51,11 @@ public class MainScreen implements Screen {
 	    enemyBox.y = 500; 
 	    enemyBox.width = 64;
 	    enemyBox.height = 64;
-
+	    
+	    // for bullets
+	    shootTimer = 0; // to test shooting bullets
+	    x = Gdx.graphics.getWidth() / 2; // x pos of bullet
+	    bullets = new ArrayList<Bullet>(); // store bullets created
 
 	}
 	
@@ -62,6 +72,32 @@ public class MainScreen implements Screen {
 		player.handleMovement();
 		Gdx.gl.glClearColor(1, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+		
+		shootTimer += delta; // for timing when space btn pressed and bullet fired
+		
+	    // if press space button, shoot two bullets
+		if (Gdx.input.isKeyJustPressed(Keys.SPACE) && shootTimer >= SHOOT_WAIT_TIME) {
+				
+			shootTimer = 0;				
+			bullets.add(new Bullet(x + 4));
+			bullets.add(new Bullet(x - 4));
+			  							
+		}
+	      
+	    // store the bullets to remove after shot
+		ArrayList<Bullet> bulletsToRemove = new ArrayList<Bullet>();
+		for (Bullet bullet : bullets) {
+				
+			bullet.update(delta); // this updates position of bullet on each render
+			
+			if (bullet.remove) { // check if bullet out of gameplay, if yes add to bulletsToRemove
+				bulletsToRemove.add(bullet);
+	      	}
+		
+		}
+			
+	    bullets.removeAll(bulletsToRemove); // remove bullets
+		
 		batch.begin();
 		batch.draw(img, 0, 0);
 
@@ -72,6 +108,11 @@ public class MainScreen implements Screen {
 		//DRAW ENEMY
 	    
 	    batch.draw(test.getImg(), enemyBox.x, enemyBox.y);
+	    
+	    // draw all bullets created
+		for (Bullet bullet: bullets) {
+			bullet.render(batch);
+		}
 		
 
 		batch.end();
@@ -105,7 +146,7 @@ public class MainScreen implements Screen {
 	    	  test.setSpeed(test.getSpeed()*-1);
 	      }
 	      
-		
+
 		
 	}
 
