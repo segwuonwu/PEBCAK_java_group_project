@@ -1,6 +1,5 @@
-[![pipeline status](https://gitlab.com/Frostdown/PEBCAK/badges/master/pipeline.svg)](https://gitlab.com/Frostdown/PEBCAK/commits/master)
-*Project Vision*
-_Team 16_
+Project Vision
+Team 16
 
 We will be implementing a bullet hell shooter video game based on the Touhou project. The objective of the game is for the main character, controlled by the user, to advance through a 
 series of game phases. In each game phase the player must dodge various types and numbers of enemy projectiles. To pass the game, the user must advance through all phases of the game 
