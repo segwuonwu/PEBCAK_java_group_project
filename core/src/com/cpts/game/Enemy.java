@@ -26,6 +26,10 @@ public abstract class Enemy {
 		this.speed = speed;
 	}
 	
+	protected void reverseSpeed(){
+		this.speed = speed*=-1;		
+	}
+	
 	protected String getEnemyType() {
 		return enemyType;
 	}

@@ -22,9 +22,11 @@ public class MainScreen implements Screen {
 	Texture img;
 	Rectangle box;
 
+	Enemy test = new EnemyFinalBoss();
+
+
 	Player player;
 
-	Enemy test = new TestEnemy();
 	Rectangle enemyBox;
 		
 	float shootTimer; // for timing between pressing space and shooting bullets
@@ -47,8 +49,9 @@ public class MainScreen implements Screen {
 
 		//draw an EnemyBox
 	    enemyBox = new Rectangle();
-	    enemyBox.x = 800 / 2 - 64 / 2;
+	    enemyBox.x = (Gdx.graphics.getWidth() / 2) - (test.getImg().getWidth() / 2);
 	    enemyBox.y = 500; 
+
 	    enemyBox.width = 64;
 	    enemyBox.height = 64;
 	    
@@ -56,6 +59,7 @@ public class MainScreen implements Screen {
 	    shootTimer = 0; // to test shooting bullets
 	    x = Gdx.graphics.getWidth() / 2; // x pos of bullet
 	    bullets = new ArrayList<Bullet>(); // store bullets created
+
 
 	}
 	
@@ -101,6 +105,7 @@ public class MainScreen implements Screen {
 		batch.begin();
 		batch.draw(img, 0, 0);
 
+
 		//batch.draw(cat, box.x, box.y);
 		batch.draw(player.sprite, player.sprite.getX(), player.sprite.getY());
 
@@ -115,8 +120,17 @@ public class MainScreen implements Screen {
 		}
 		
 
+
 		batch.end();
+
+		// process user input
+		if (Gdx.input.isTouched()) {
+			Vector3 touchPos = new Vector3();
+			touchPos.set(Gdx.input.getX(), Gdx.input.getY(), 0);
+			box.x = touchPos.x - 64 / 2;
+		}
 		
+
 	      // process user input
 	      if(Gdx.input.isTouched()) {
 	         Vector3 touchPos = new Vector3();
@@ -147,7 +161,7 @@ public class MainScreen implements Screen {
 	      }
 	      
 
-		
+
 	}
 
 	@Override
