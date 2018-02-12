@@ -7,6 +7,7 @@ import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
@@ -23,6 +24,8 @@ public class MainScreen implements Screen {
 	Texture cat;
 	Texture img;
 	Rectangle box;
+	BitmapFont font;
+	BitmapFont timerfont;
 	
 	
 	// Creating four level enemies , The plan is to create lists of enemy A and B 
@@ -34,8 +37,6 @@ public class MainScreen implements Screen {
 
 	Player player;
 	
-	
-	
 	Rectangle enemyBox;
 	Rectangle enemyA;
 	Rectangle enemyB;
@@ -45,7 +46,12 @@ public class MainScreen implements Screen {
 	Boolean enemyATest = true;
 	Boolean enemyBTest = false;
 	Boolean enemyMidTest = false;
-		
+	
+
+	int showtime = 0;
+	float deltaTime = 0;
+	CharSequence str;
+	
 	float shootTimer; // for timing between pressing space and shooting bullets
 
 	ArrayList<Bullet> bulletsPlayer; // store bullets created
@@ -54,7 +60,7 @@ public class MainScreen implements Screen {
 		parent = mainGameClass;
 		batch = new SpriteBatch();
 		player = new Player();
-		img = new Texture("konosuba-2-aqua-drinking.png");
+		img = new Texture("galaxy.png");
 		cat = new Texture("cat.jpg");
 		
 		//draw a box
@@ -87,8 +93,6 @@ public class MainScreen implements Screen {
 	    enemyMid.height = 32;
 	    
 	    
-	    
-	    
 	    enemyBox = new Rectangle();
 	    enemyBox.x = (Gdx.graphics.getWidth() / 2) - (boss.getImg().getWidth() / 2);
 	    enemyBox.y = 500; 
@@ -96,23 +100,20 @@ public class MainScreen implements Screen {
 	    enemyBox.width = 64;
 	    enemyBox.height = 64;
 	    
+	    font = new BitmapFont();
+	    
+	    timerfont = new BitmapFont();
 	    // for bullets
 	    shootTimer = 0; // to test shooting bullets
 	    x = Gdx.graphics.getWidth() / 2; // x pos of bullet
 	    bulletsPlayer = new ArrayList<Bullet>(); // store bullets created
 	    
+
 	    Timer.schedule(new Task() {
 	    	  	@Override
 	    	  	public void run()
 	    	  	{
 	    	  		enemyATest = false;
-	    	  	}
-	    },19);
-	    
-	    Timer.schedule(new Task() {
-	    	  	@Override
-	    	  	public void run()
-	    	  	{
 	    	  		enemyBTest = true;
 	    	  	}
 	    },20);
@@ -151,6 +152,8 @@ public class MainScreen implements Screen {
 		Gdx.gl.glClearColor(1, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		
+		
+		
 		shootTimer += delta; // for timing when space btn pressed and bullet fired
 		
 	    // if press space button, shoot two bullets
@@ -177,9 +180,13 @@ public class MainScreen implements Screen {
 	    bulletsPlayer.removeAll(bulletsToRemove); // remove bullets
 		
 		batch.begin();
-		//batch.draw(img, 0, 0);
-
-
+		batch.draw(img, 0, 0);
+		
+		deltaTime += Gdx.graphics.getDeltaTime();
+		showtime = (int)deltaTime;
+	    str = "TIMER: " + Float.toString(showtime);
+	    timerfont.draw(batch, str, 300, 300);
+		
 		//batch.draw(cat, box.x, box.y);
 		batch.draw(player.sprite, player.sprite.getX(), player.sprite.getY());
 
@@ -239,7 +246,7 @@ public class MainScreen implements Screen {
 			bullet.render(batch);
 		}
 		
-
+		font.draw(batch, "Toggle between slow mode using Z ", 400, 400);
 
 		batch.end();
 
@@ -266,7 +273,7 @@ public class MainScreen implements Screen {
 	      
 	      
 	      
-	      
+	     
 	     
 
 	}
