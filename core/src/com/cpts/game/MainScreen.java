@@ -1,5 +1,6 @@
 package com.cpts.game;
 
+import java.io.Console;
 import java.util.ArrayList;
 
 import com.badlogic.gdx.Gdx;
@@ -55,6 +56,7 @@ public class MainScreen implements Screen {
 	float shootTimer; // for timing between pressing space and shooting bullets
 
 	ArrayList<Bullet> bulletsPlayer; // store bullets created
+	ArrayList<Bullet> bulletsEnemy;
 	 
 	public MainScreen(MainGameClass mainGameClass){
 		parent = mainGameClass;
@@ -107,7 +109,7 @@ public class MainScreen implements Screen {
 	    shootTimer = 0; // to test shooting bullets
 	    x = Gdx.graphics.getWidth() / 2; // x pos of bullet
 	    bulletsPlayer = new ArrayList<Bullet>(); // store bullets created
-	    
+	    bulletsEnemy = new ArrayList<Bullet>();
 
 	    Timer.schedule(new Task() {
 	    	  	@Override
@@ -135,7 +137,35 @@ public class MainScreen implements Screen {
 	    	  		enemyMidTest = false;
 	    	  		enemyBossTest = true;
 	    	  	}
-	    },90);
+	    },80);
+	    
+	    
+	    Timer.schedule(new Task() {
+	    	  	@Override
+	    	  	public void run()
+	    	  	{
+	    	  		if(enemyATest == true) {	    	  			
+	    	  			bulletsEnemy.add(new Bullet((int)enemyA.x + 32,(int)enemyA.y));
+	    	  			
+				}
+				else if(enemyBTest == true) {
+					bulletsEnemy.add(new Bullet((int)enemyB.x,(int)enemyB.y));
+					bulletsEnemy.add(new Bullet((int)enemyB.x + 32,(int)enemyB.y));
+				}
+				else if(enemyMidTest == true) {
+					bulletsEnemy.add(new Bullet((int)enemyMid.x,(int)enemyMid.y));
+					bulletsEnemy.add(new Bullet((int)enemyMid.x + 32,(int)enemyMid.y));
+					bulletsEnemy.add(new Bullet((int)enemyMid.x + 64,(int)enemyMid.y));
+				}
+				else if(enemyBossTest == true) {
+					bulletsEnemy.add(new Bullet((int)enemyBox.x,(int)enemyBox.y));
+					bulletsEnemy.add(new Bullet((int)enemyBox.x + 22,(int)enemyBox.y));
+					bulletsEnemy.add(new Bullet((int)enemyBox.x + 44,(int)enemyBox.y));
+					bulletsEnemy.add(new Bullet((int)enemyBox.x + 64,(int)enemyBox.y));
+				}
+	    	  		System.out.println(bulletsEnemy.size());
+	    	  	}
+	    },0,1);
 	}
 	
 	
@@ -176,6 +206,8 @@ public class MainScreen implements Screen {
 	      	}
 		
 		}
+		
+		
 			
 	    bulletsPlayer.removeAll(bulletsToRemove); // remove bullets
 		
@@ -247,6 +279,21 @@ public class MainScreen implements Screen {
 		}
 		
 		font.draw(batch, "Toggle between slow mode using Z ", 400, 400);
+		
+		for (Bullet bullet: bulletsEnemy) {
+			// This is a temporary set up
+			// Plan is to attach bullets to each enemy class and make them initialize them
+			
+			bullet.updateforEnemy(delta);
+			
+			if (bullet.remove) { // check if bullet out of gameplay, if yes add to bulletsToRemove
+				bulletsToRemove.add(bullet);
+	      	}
+		}
+		
+		for (Bullet bullet: bulletsEnemy) {
+			bullet.render(batch);
+		}
 
 		batch.end();
 
