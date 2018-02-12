@@ -27,6 +27,7 @@ public class MainScreen implements Screen {
 	Rectangle box;
 	BitmapFont font;
 	BitmapFont timerfont;
+	BitmapFont space;
 	
 	
 	// Creating four level enemies , The plan is to create lists of enemy A and B 
@@ -105,6 +106,8 @@ public class MainScreen implements Screen {
 	    font = new BitmapFont();
 	    
 	    timerfont = new BitmapFont();
+	    
+	    space = new BitmapFont();
 	    // for bullets
 	    shootTimer = 0; // to test shooting bullets
 	    x = Gdx.graphics.getWidth() / 2; // x pos of bullet
@@ -279,6 +282,8 @@ public class MainScreen implements Screen {
 		}
 		
 		font.draw(batch, "Toggle between slow mode using Z ", 400, 400);
+		
+		space.draw(batch,"Spacebar to shoot !",500,500);
 		
 		for (Bullet bullet: bulletsEnemy) {
 			// This is a temporary set up
