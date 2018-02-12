@@ -22,9 +22,9 @@ public class Bullet {
 	
 	public boolean remove = false;
 	
-	public Bullet(float x) {
+	public Bullet(float x, float y) {
 		this.x = x;
-		this.y = DEFAULT_Y;
+		this.y = y;
 		
 		if (texture == null) {
 			texture = new Texture("bullet.png");
@@ -32,9 +32,9 @@ public class Bullet {
 		
 	}
 	
-	public void update (float deltaTime) {
+	public void updateforPlayer (float deltaTime) {
 				
-		y -= SPEED * deltaTime;
+		y += SPEED * deltaTime;
 	
 		if (y > Gdx.graphics.getHeight()) {
 			remove = true;

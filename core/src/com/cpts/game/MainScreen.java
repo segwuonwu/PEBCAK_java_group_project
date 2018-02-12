@@ -31,7 +31,7 @@ public class MainScreen implements Screen {
 		
 	float shootTimer; // for timing between pressing space and shooting bullets
 
-	ArrayList<Bullet> bullets; // store bullets created
+	ArrayList<Bullet> bulletsPlayer; // store bullets created
 	 
 	public MainScreen(MainGameClass mainGameClass){
 		parent = mainGameClass;
@@ -58,7 +58,7 @@ public class MainScreen implements Screen {
 	    // for bullets
 	    shootTimer = 0; // to test shooting bullets
 	    x = Gdx.graphics.getWidth() / 2; // x pos of bullet
-	    bullets = new ArrayList<Bullet>(); // store bullets created
+	    bulletsPlayer = new ArrayList<Bullet>(); // store bullets created
 
 
 	}
@@ -83,16 +83,16 @@ public class MainScreen implements Screen {
 		if (Gdx.input.isKeyJustPressed(Keys.SPACE) && shootTimer >= SHOOT_WAIT_TIME) {
 				
 			shootTimer = 0;				
-			bullets.add(new Bullet(x + 4));
-			bullets.add(new Bullet(x - 4));
+			bulletsPlayer.add(new Bullet(player.sprite.getX() + 4,player.sprite.getY()));
+			bulletsPlayer.add(new Bullet(player.sprite.getX()- 4,player.sprite.getY()));
 			  							
 		}
 	      
 	    // store the bullets to remove after shot
 		ArrayList<Bullet> bulletsToRemove = new ArrayList<Bullet>();
-		for (Bullet bullet : bullets) {
+		for (Bullet bullet : bulletsPlayer) {
 				
-			bullet.update(delta); // this updates position of bullet on each render
+			bullet.updateforPlayer(delta); // this updates position of bullet on each render
 			
 			if (bullet.remove) { // check if bullet out of gameplay, if yes add to bulletsToRemove
 				bulletsToRemove.add(bullet);
@@ -100,10 +100,10 @@ public class MainScreen implements Screen {
 		
 		}
 			
-	    bullets.removeAll(bulletsToRemove); // remove bullets
+	    bulletsPlayer.removeAll(bulletsToRemove); // remove bullets
 		
 		batch.begin();
-		batch.draw(img, 0, 0);
+		//batch.draw(img, 0, 0);
 
 
 		//batch.draw(cat, box.x, box.y);
@@ -115,7 +115,7 @@ public class MainScreen implements Screen {
 	    batch.draw(test.getImg(), enemyBox.x, enemyBox.y);
 	    
 	    // draw all bullets created
-		for (Bullet bullet: bullets) {
+		for (Bullet bullet: bulletsPlayer) {
 			bullet.render(batch);
 		}
 		
