@@ -10,6 +10,8 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.utils.Timer;
+import com.badlogic.gdx.utils.Timer.Task;
 
 public class MainScreen implements Screen {
 
@@ -21,13 +23,28 @@ public class MainScreen implements Screen {
 	Texture cat;
 	Texture img;
 	Rectangle box;
-
-	Enemy test = new EnemyFinalBoss();
-
+	
+	
+	// Creating four level enemies , The plan is to create lists of enemy A and B 
+	// Movement and particulars will be done later
+	Enemy boss = new EnemyFinalBoss();
+	Enemy a = new EnemyA();
+	Enemy b = new EnemyB();
+	Enemy midboss = new EnemyMidBoss();
 
 	Player player;
-
+	
+	
+	
 	Rectangle enemyBox;
+	Rectangle enemyA;
+	Rectangle enemyB;
+	Rectangle enemyMid;
+	
+	Boolean enemyBossTest = false;
+	Boolean enemyATest = true;
+	Boolean enemyBTest = false;
+	Boolean enemyMidTest = false;
 		
 	float shootTimer; // for timing between pressing space and shooting bullets
 
@@ -48,8 +65,32 @@ public class MainScreen implements Screen {
 	    box.height = 64;
 
 		//draw an EnemyBox
+	    enemyA = new Rectangle();
+	    enemyA.x = (Gdx.graphics.getWidth() / 2) - (a.getImg().getWidth() / 2);
+	    enemyA.y = 500; 
+
+	    enemyA.width = 16;
+	    enemyA.height = 16;
+	    
+	    enemyB = new Rectangle();
+	    enemyB.x = (Gdx.graphics.getWidth() / 2) - (b.getImg().getWidth() / 2);
+	    enemyB.y = 500; 
+
+	    enemyB.width = 16;
+	    enemyB.height = 16;
+	    
+	    enemyMid = new Rectangle();
+	    enemyMid.x = (Gdx.graphics.getWidth() / 2) - (midboss.getImg().getWidth() / 2);
+	    enemyMid.y = 500; 
+
+	    enemyMid.width = 32;
+	    enemyMid.height = 32;
+	    
+	    
+	    
+	    
 	    enemyBox = new Rectangle();
-	    enemyBox.x = (Gdx.graphics.getWidth() / 2) - (test.getImg().getWidth() / 2);
+	    enemyBox.x = (Gdx.graphics.getWidth() / 2) - (boss.getImg().getWidth() / 2);
 	    enemyBox.y = 500; 
 
 	    enemyBox.width = 64;
@@ -59,8 +100,41 @@ public class MainScreen implements Screen {
 	    shootTimer = 0; // to test shooting bullets
 	    x = Gdx.graphics.getWidth() / 2; // x pos of bullet
 	    bulletsPlayer = new ArrayList<Bullet>(); // store bullets created
-
-
+	    
+	    Timer.schedule(new Task() {
+	    	  	@Override
+	    	  	public void run()
+	    	  	{
+	    	  		enemyATest = false;
+	    	  	}
+	    },19);
+	    
+	    Timer.schedule(new Task() {
+	    	  	@Override
+	    	  	public void run()
+	    	  	{
+	    	  		enemyBTest = true;
+	    	  	}
+	    },20);
+	    
+	    Timer.schedule(new Task() {
+	    	  	@Override
+	    	  	public void run()
+	    	  	{
+	    	  		enemyBTest = false;
+	    	  		enemyMidTest = true;
+	    	  	}
+	    },48);
+	    
+	    
+	    Timer.schedule(new Task() {
+	    	  	@Override
+	    	  	public void run()
+	    	  	{
+	    	  		enemyMidTest = false;
+	    	  		enemyBossTest = true;
+	    	  	}
+	    },90);
 	}
 	
 	
@@ -111,9 +185,55 @@ public class MainScreen implements Screen {
 
 		//batch.draw(cat, box.x, box.y);	
 		//DRAW ENEMY
-	    
-	    batch.draw(test.getImg(), enemyBox.x, enemyBox.y);
-	    
+		if(enemyATest == true)
+		{
+			batch.draw(a.getImg(), enemyA.x,enemyA.y);
+		}
+		
+		if(enemyBTest == true)
+		{
+			batch.draw(b.getImg(), enemyB.x,enemyB.y);
+		}
+		
+		if(enemyMidTest == true)
+		{
+			batch.draw(midboss.getImg(), enemyMid.x,enemyMid.y);
+			 enemyMid.x+=midboss.getSpeed();
+		      
+		      //check bounds
+		    if(enemyMid.x > 1038 - 64) {
+		    	  enemyMid.x = 1038 - 64;
+		    	  //reverse speed (move opposite way)
+		    	  midboss.setSpeed(midboss.getSpeed()*-1);
+		    }
+		      
+		    if(enemyMid.x < 0) {
+		    	  enemyMid.x = 0;
+		    	  //reverse speed (move opposite way)
+		    	  midboss.setSpeed(midboss.getSpeed()*-1);
+		    }
+		}
+		
+		
+		
+	    if(enemyBossTest == true)
+	    {
+		    batch.draw(boss.getImg(), enemyBox.x, enemyBox.y);
+		    enemyBox.x+=boss.getSpeed();
+		      
+		      //check bounds
+		    if(enemyBox.x > 1038 - 64) {
+		    	  enemyBox.x = 1038 - 64;
+		    	  //reverse speed (move opposite way)
+		    	  boss.setSpeed(boss.getSpeed()*-1);
+		    }
+		      
+		    if(enemyBox.x < 0) {
+		    	  enemyBox.x = 0;
+		    	  //reverse speed (move opposite way)
+		    	  boss.setSpeed(boss.getSpeed()*-1);
+		    }
+	    }   
 	    // draw all bullets created
 		for (Bullet bullet: bulletsPlayer) {
 			bullet.render(batch);
@@ -145,22 +265,9 @@ public class MainScreen implements Screen {
 	      if(box.x > 1038 - 64) box.x = 1038 - 64;
 	      
 	      
-	      enemyBox.x+=test.getSpeed();
 	      
-	      //check bounds
-	      if(enemyBox.x > 1038 - 64) {
-	    	  enemyBox.x = 1038 - 64;
-	    	  //reverse speed (move opposite way)
-	    	  test.setSpeed(test.getSpeed()*-1);
-	      }
 	      
-	      if(enemyBox.x < 0) {
-	    	  enemyBox.x = 0;
-	    	  //reverse speed (move opposite way)
-	    	  test.setSpeed(test.getSpeed()*-1);
-	      }
-	      
-
+	     
 
 	}
 
