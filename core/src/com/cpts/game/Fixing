@@ -1,0 +1,8 @@
+Completed Integration. Things to be fixed or changed
+
+- Bullet class implementation needs to be decided, call either by enemy class or use an enemy as a parameter in the constructor to decide what kind of bullet to be fired. 
+- Bullet type should use a factory 
+- Enemy class should use a factory 
+- We are using individual rectangle boxes for each enemy object. This needs to be fixed 
+- All hard code should be reviewed 
+- Remove timer for enemy objects, to be changed to based on collision
