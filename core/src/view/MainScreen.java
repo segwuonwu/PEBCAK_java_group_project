@@ -2,6 +2,7 @@ package view;
 
 import java.io.Console;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
@@ -15,6 +16,7 @@ import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Timer;
 import com.badlogic.gdx.utils.Timer.Task;
 
+import Factory.BulletFactory;
 import Factory.EnemyFactory;
 import models.Bullet;
 import models.Enemy;
@@ -41,6 +43,7 @@ public class MainScreen implements Screen {
 	
 	//Creating Factory for enemy's and a list to store them in
 	EnemyFactory Efactory = new EnemyFactory();
+	BulletFactory Bfactory = new BulletFactory();
 	ArrayList<Enemy> Elist = new ArrayList<Enemy>(); 
 
 	//player object does not need a factory
@@ -104,6 +107,22 @@ public class MainScreen implements Screen {
 		for(Enemy en : Elist) {
 			en.movement.Move();
 		}
+		Iterator<Bullet> bulletsIterator = bulletsPlayer.iterator();
+		while( bulletsIterator.hasNext()) {
+			Bullet b = bulletsIterator.next(); 
+			b.movement.Move();
+			Iterator<Enemy> i = Elist.iterator();
+			while( i.hasNext()) {
+				Enemy e = i.next();
+				e.movement.Move();
+				if(e.movement.sprite.getBoundingRectangle().overlaps(b.movement.sprite.getBoundingRectangle()))
+						{
+						    i.remove();
+						    bulletsIterator.remove();
+						}
+			}
+		}
+
 		Gdx.gl.glClearColor(1, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		
@@ -115,8 +134,8 @@ public class MainScreen implements Screen {
 		if (Gdx.input.isKeyJustPressed(Keys.SPACE) && shootTimer >= SHOOT_WAIT_TIME) {
 				
 			shootTimer = 0;				
-			bulletsPlayer.add(new Bullet(player.movement.sprite.getX() + 4,player.movement.sprite.getY()));
-			bulletsPlayer.add(new Bullet(player.movement.sprite.getX()- 4,player.movement.sprite.getY()));
+			bulletsPlayer.add(Bfactory.Create("bulletA", player.movement.sprite.getX() + 15,player.movement.sprite.getY() + 22, 4f));
+			bulletsPlayer.add(Bfactory.Create("bulletA", player.movement.sprite.getX() + 9,player.movement.sprite.getY() + 22, 4f));
 			  							
 		}
 	      
@@ -139,7 +158,7 @@ public class MainScreen implements Screen {
 
    // draw all bullets created
 		for (Bullet bullet: bulletsPlayer) {
-			bullet.render(batch);
+			batch.draw(bullet.getImg(), bullet.movement.sprite.getX(), bullet.movement.sprite.getY());
 		}
 		
 		font.draw(batch, "Toggle between slow mode using Z ", 400, 400);
