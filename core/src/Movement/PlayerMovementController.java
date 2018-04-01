@@ -1,33 +1,19 @@
-package com.cpts.game;
+package Movement;
 
-import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 
+public class PlayerMovementController implements iMovementController{
 
-
-//Instantiate with Player p = new Player();
-//draw with batch.draw(p.sprite, p.sprite.getX(), p.sprite.getY());
-
-public class Player {
-	
 	Texture img;
-	Sprite sprite;
-	
+	public Sprite sprite;
 	float xSpeed, ySpeed, xSpeedSlow, ySpeedSlow;
 	boolean slowMotionEnabled;
-	
 	int slowMotionToggleCooldown;
 	
-	//Bullet bulletType1, bulletType2;
-	//The bullet types to be used by the player for firing,
-	//Bullet class is not yet implemented
-	
-	Player()
+	public PlayerMovementController()
 	{
 		img = new Texture("player.png");
 		sprite = new Sprite(img);
@@ -41,6 +27,32 @@ public class Player {
 		
 	}
 
+	
+	@Override
+	public void Move() {
+		// TODO Auto-generated method stub
+		if (Gdx.input.isKeyPressed(Input.Keys.Z) && slowMotionToggleCooldown <= 0)
+		{
+			slowMotionEnabled = !slowMotionEnabled;
+			slowMotionToggleCooldown = 1;
+		}
+		if (!Gdx.input.isKeyPressed(Input.Keys.Z))
+		{
+			slowMotionToggleCooldown--;
+		}
+		
+		
+		if (slowMotionEnabled)
+		{
+			moveSlowly();
+		}
+		else
+		{
+			moveNormal();
+		}
+		
+	}
+	
 	public void clampPlayerToScreen()
 	{
 		//the farthest the player is allowed to move to the right
@@ -114,42 +126,5 @@ public class Player {
 		}
 		clampPlayerToScreen();
 	}
-	
-	
-	
-	
-	/**
-	 * The slow motion toggle must be kept on a short cooldown (currently
-	 * 1 frame) in order to prevent the toggle from switching back and
-	 * forth when key is held down. Slow motion mode can only be
-	 * activated or deactivated when slowMotionToggleCooldown is 0
-	 */
-	
-	public void handleMovement()
-	{
-		if (Gdx.input.isKeyPressed(Input.Keys.Z) && slowMotionToggleCooldown <= 0)
-		{
-			slowMotionEnabled = !slowMotionEnabled;
-			slowMotionToggleCooldown = 1;
-		}
-		if (!Gdx.input.isKeyPressed(Input.Keys.Z))
-		{
-			slowMotionToggleCooldown--;
-		}
-		
-		
-		if (slowMotionEnabled)
-		{
-			moveSlowly();
-		}
-		else
-		{
-			moveNormal();
-		}
-		
-		
-	
-	}
-	
 
 }
