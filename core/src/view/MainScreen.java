@@ -126,7 +126,12 @@ public class MainScreen implements Screen {
 		while (bulletsIteratorEnemy.hasNext()) {
 			Bullet enemyBullet = bulletsIteratorEnemy.next();
 			enemyBullet.movement.Move();
-			if (enemyBullet.movement.sprite.getBoundingRectangle().overlaps(player.movement.sprite.getBoundingRectangle())) {
+			Rectangle bounds = player.movement.sprite.getBoundingRectangle();
+			float w = bounds.getWidth();
+			float h = bounds.getHeight();
+			bounds.setSize(bounds.width*0.7f, bounds.height*.7f);
+			bounds.setPosition( bounds.x+(w-bounds.width)/2F, bounds.y+(h-bounds.height)/2);
+			if (enemyBullet.movement.sprite.getBoundingRectangle().overlaps(bounds)) {
 				bulletsIteratorEnemy.remove();
 				if(player.death()) {
 					parent.changeScreen(MainGameClass.MENU);
