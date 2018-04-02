@@ -1,14 +1,15 @@
-package com.cpts.game;
+package view;
 
 import com.badlogic.gdx.Screen;
 
-public class LoadingScreen implements Screen {
+public class EndScreen implements Screen{
 
 	private MainGameClass parent;
 	 
-	public LoadingScreen(MainGameClass mainGameClass){
+	public EndScreen(MainGameClass mainGameClass){
 		parent = mainGameClass;     
 	}
+	
 	
 	@Override
 	public void show() {
@@ -18,7 +19,7 @@ public class LoadingScreen implements Screen {
 
 	@Override
 	public void render(float delta) {
-		parent.changeScreen(MainGameClass.MENU);
+		// TODO Auto-generated method stub
 		
 	}
 

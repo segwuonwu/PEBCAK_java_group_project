@@ -1,4 +1,4 @@
-package com.cpts.game;
+package view;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Game;
@@ -42,7 +42,7 @@ public class MainGameClass extends Game {
 				this.setScreen(preferencesScreen);
 				break;
 			case APPLICATION:
-				if(mainScreen == null) mainScreen = new MainScreen(this);
+				mainScreen = new MainScreen(this);
 				this.setScreen(mainScreen);
 				break;
 			case ENDGAME:

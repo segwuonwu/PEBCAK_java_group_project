@@ -1,4 +1,4 @@
-package com.cpts.game;
+package view;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
