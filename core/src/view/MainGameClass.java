@@ -42,7 +42,7 @@ public class MainGameClass extends Game {
 				this.setScreen(preferencesScreen);
 				break;
 			case APPLICATION:
-				if(mainScreen == null) mainScreen = new MainScreen(this);
+				mainScreen = new MainScreen(this);
 				this.setScreen(mainScreen);
 				break;
 			case ENDGAME:

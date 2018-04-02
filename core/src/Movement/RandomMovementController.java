@@ -15,15 +15,15 @@ public class RandomMovementController extends Movement {
 	public void Move() {
 		
 		Random rand = new Random();
-		ySpeed += (rand.nextInt(20) - 20) * Gdx.graphics.getDeltaTime();
-		xSpeed += (rand.nextInt(20) - 10) * Gdx.graphics.getDeltaTime();
-		if (ySpeed > 20)
+		ySpeed += (rand.nextInt(40) - 30) * Gdx.graphics.getDeltaTime();
+		xSpeed += (rand.nextInt(100) - 50) * Gdx.graphics.getDeltaTime();
+		if (ySpeed > 30)
 			ySpeed = 0;
-		if ( xSpeed > 20)
+		if ( xSpeed > 100)
 			xSpeed = 0;
-		if (ySpeed < -20)
+		if (ySpeed < -30)
 			ySpeed = 0;
-		if ( xSpeed < -20)
+		if ( xSpeed < -100)
 			xSpeed = 0;
 		sprite.translateY(ySpeed * Gdx.graphics.getDeltaTime());
 		sprite.translateX(xSpeed * Gdx.graphics.getDeltaTime());

@@ -7,14 +7,14 @@ import com.badlogic.gdx.graphics.Texture;
 
 public class EnemyB extends Enemy {
 	
-	public EnemyB() {
+	public EnemyB(String movementType) {
 		//hard coded test enemy
 		//add unique functionality to this class as well
 		super("EnemyB", 1);
 		Random rand = new Random();
 		float x = rand.nextInt(600);
 		float y = rand.nextInt(200) + 500;
-		movement = mFac.Create("straight", new Texture("EnemyB.jpg"), x, y, -10f);
+		movement = mFac.Create(movementType, new Texture("EnemyB.jpg"), x, y, -40f);
 	}
 
 }

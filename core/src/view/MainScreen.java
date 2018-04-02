@@ -63,11 +63,6 @@ public class MainScreen implements Screen {
 		box.height = 64;
 		timeAux = 0;
 
-		// add some test enemy's
-		Elist.add(Efactory.Create("EnemyA", "random"));
-		Elist.add(Efactory.Create("EnemyB", "random"));
-		Elist.add(Efactory.Create("EnemyFinalBoss", "straight"));
-		Elist.add(Efactory.Create("EnemyMidBoss", "straight"));
 
 		font = new BitmapFont();
 
@@ -96,10 +91,10 @@ public class MainScreen implements Screen {
 			timeAux += delta;
 		}
 		if (BossTimer >= 60) {
-			// spawn boss stop spawning waves
+			Elist.add(Efactory.Create("EnemyMidBoss", "stationary"));
 		}
 		if (BossTimer >= 120) {
-			// spawn boss stop spawning waves
+			Elist.add(Efactory.Create("EnemyFinalBoss", "stationary"));
 		}
 
 		player.move();
@@ -194,14 +189,12 @@ public class MainScreen implements Screen {
 
 	public void enemyWave(ArrayList<Enemy> enemyList) {
 		Elist.add(Efactory.Create("EnemyA", "random"));
+		Elist.add(Efactory.Create("EnemyB", "straight"));
+		Elist.add(Efactory.Create("EnemyA", "straight"));
+		Elist.add(Efactory.Create("EnemyA", "straight"));
 		Elist.add(Efactory.Create("EnemyB", "random"));
-		Elist.add(Efactory.Create("EnemyA", "random"));
-		Elist.add(Efactory.Create("EnemyB", "random"));
-		Elist.add(Efactory.Create("EnemyA", "random"));
-		Elist.add(Efactory.Create("EnemyB", "random"));
-		Elist.add(Efactory.Create("EnemyA", "random"));
-		Elist.add(Efactory.Create("EnemyA", "random"));
-		Elist.add(Efactory.Create("EnemyB", "random"));
+		Elist.add(Efactory.Create("EnemyA", "straight"));
+		Elist.add(Efactory.Create("EnemyB", "straight"));
 		Elist.add(Efactory.Create("EnemyA", "random"));
 
 	}

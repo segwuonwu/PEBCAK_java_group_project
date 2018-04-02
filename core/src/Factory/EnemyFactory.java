@@ -15,16 +15,16 @@ public class EnemyFactory {
 	public Enemy Create(String enemyType, String movementType) {
 		Enemy enemy = null;
 		if (enemyType == "EnemyA") {
-			 enemy = new EnemyA();
+			 enemy = new EnemyA(movementType);
 		}
 		else if(enemyType == "EnemyB") {
-			 enemy = new EnemyB();
+			 enemy = new EnemyB(movementType);
 		}
 		else if(enemyType == "EnemyFinalBoss") {
-			 enemy = new EnemyFinalBoss();
+			 enemy = new EnemyFinalBoss(movementType);
 		}
 		else if(enemyType == "EnemyMidBoss") {
-			 enemy = new EnemyMidBoss();
+			 enemy = new EnemyMidBoss(movementType);
 		}
 		return enemy;
 	}
