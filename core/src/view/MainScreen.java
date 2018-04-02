@@ -180,7 +180,7 @@ public class MainScreen implements Screen {
 		}
 
 		font.draw(batch, "Toggle between slow mode using Z ", 400, 400);
-
+		font.draw(batch, "HEALTH: " + player.getHealth(), 10, 550);
 		space.draw(batch, "Spacebar to shoot !", 500, 500);
 
 		batch.end();
