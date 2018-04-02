@@ -1,6 +1,5 @@
 package view;
 
-import java.io.Console;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -12,28 +11,18 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.math.Vector3;
-import com.badlogic.gdx.utils.Timer;
-import com.badlogic.gdx.utils.Timer.Task;
-
 import Factory.BulletFactory;
 import Factory.EnemyFactory;
 import models.Bullet;
 import models.Enemy;
-import models.EnemyA;
-import models.EnemyB;
-import models.EnemyFinalBoss;
-import models.EnemyMidBoss;
 import models.Player;
 
 public class MainScreen implements Screen {
 
 	public static final float SHOOT_WAIT_TIME = 0.3f; // time in between bullets fired
-	float y, x; // to test coordinates of bullets
 	
 	private MainGameClass parent;
 	SpriteBatch batch;
-	Texture cat;
 	Texture img;
 	Rectangle box;
 	BitmapFont font;
@@ -73,10 +62,10 @@ public class MainScreen implements Screen {
 	    box.height = 64;
 	    
 	    //add some test enemy's
-	    Elist.add(Efactory.Create("EnemyA"));
-	    Elist.add(Efactory.Create("EnemyB"));
-	    Elist.add(Efactory.Create("EnemyFinalBoss"));
-	    Elist.add(Efactory.Create("EnemyMidBoss"));
+	    Elist.add(Efactory.Create("EnemyA", "random"));
+	    Elist.add(Efactory.Create("EnemyB", "random"));
+	    Elist.add(Efactory.Create("EnemyFinalBoss", "straight"));
+	    Elist.add(Efactory.Create("EnemyMidBoss", "straight"));
 
 
 	    font = new BitmapFont();
@@ -86,7 +75,6 @@ public class MainScreen implements Screen {
 	    space = new BitmapFont();
 	    // for bullets
 	    shootTimer = 0; // to test shooting bullets
-	    x = Gdx.graphics.getWidth() / 2; // x pos of bullet
 	    bulletsPlayer = new ArrayList<Bullet>(); // store bullets created
 	    bulletsEnemy = new ArrayList<Bullet>();
 	}
@@ -103,9 +91,14 @@ public class MainScreen implements Screen {
 	
 	@Override
 	public void render(float delta) {
+		
 		player.move();
 		for(Enemy en : Elist) {
 			en.movement.Move();
+			Bullet b = en.shoot(delta);
+			if(b != null) {
+				bulletsEnemy.add(b);
+			}
 		}
 		Iterator<Bullet> bulletsIterator = bulletsPlayer.iterator();
 		while( bulletsIterator.hasNext()) {
@@ -122,6 +115,13 @@ public class MainScreen implements Screen {
 						}
 			}
 		}
+		Iterator<Bullet> bulletsIteratorEnemy = bulletsEnemy.iterator();
+		while( bulletsIteratorEnemy.hasNext()) {
+			Bullet enemyBullet = bulletsIteratorEnemy.next();
+			enemyBullet.movement.Move();
+		}
+
+
 
 		Gdx.gl.glClearColor(1, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -134,12 +134,12 @@ public class MainScreen implements Screen {
 		if (Gdx.input.isKeyJustPressed(Keys.SPACE) && shootTimer >= SHOOT_WAIT_TIME) {
 				
 			shootTimer = 0;				
-			bulletsPlayer.add(Bfactory.Create("bulletA", player.movement.sprite.getX() + 15,player.movement.sprite.getY() + 22, 4f));
-			bulletsPlayer.add(Bfactory.Create("bulletA", player.movement.sprite.getX() + 9,player.movement.sprite.getY() + 22, 4f));
+			bulletsPlayer.add(Bfactory.Create("bulletA", player.movement.sprite.getX() + 15,player.movement.sprite.getY() + 22, 300f));
+			bulletsPlayer.add(Bfactory.Create("bulletA", player.movement.sprite.getX() + 9,player.movement.sprite.getY() + 22, 300f));
 			  							
 		}
 	      
-		
+	
 		batch.begin();
 		batch.draw(img, 0, 0);
 		
@@ -148,10 +148,9 @@ public class MainScreen implements Screen {
 	    str = "TIMER: " + Float.toString(showtime);
 	    timerfont.draw(batch, str, 300, 300);
 		
-		//batch.draw(cat, box.x, box.y);
 		batch.draw(player.movement.sprite, player.movement.sprite.getX(), player.movement.sprite.getY());
 
-		//Draw all enemys
+		//Draw all enemy's
 		for(Enemy en : Elist) {
 			batch.draw(en.getImg(), en.movement.sprite.getX(), en.movement.sprite.getY());
 		}
@@ -159,6 +158,9 @@ public class MainScreen implements Screen {
    // draw all bullets created
 		for (Bullet bullet: bulletsPlayer) {
 			batch.draw(bullet.getImg(), bullet.movement.sprite.getX(), bullet.movement.sprite.getY());
+		}
+		for (Bullet ebullet: bulletsEnemy) {
+			batch.draw(ebullet.getImg(), ebullet.movement.sprite.getX(), ebullet.movement.sprite.getY());
 		}
 		
 		font.draw(batch, "Toggle between slow mode using Z ", 400, 400);

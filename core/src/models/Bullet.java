@@ -5,11 +5,12 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.TimeUtils;
 
+import Movement.Movement;
 import Movement.StraightLineController;
 
 public abstract class Bullet {
 	
-	public StraightLineController movement;
+	public Movement movement;
 
 	float stopTimer;
 

@@ -5,28 +5,23 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 
-public class PlayerMovementController implements iMovementController{
+public class PlayerMovementController extends Movement{
 
-	Texture img;
-	public Sprite sprite;
-	float xSpeed, ySpeed, xSpeedSlow, ySpeedSlow;
+
+	float xSpeed, xSpeedSlow, ySpeedSlow;
 	boolean slowMotionEnabled;
 	int slowMotionToggleCooldown;
+
 	
-	public PlayerMovementController()
-	{
-		img = new Texture("player.png");
-		sprite = new Sprite(img);
+	public PlayerMovementController(float speed, Texture _img) {
+		super(speed, _img);
 		sprite.setX(0f);
 		sprite.setY(0f);
 		xSpeed = 5f;
 		ySpeed = 3f;
 		xSpeedSlow = 2f;
 		ySpeedSlow = 1f;
-		slowMotionToggleCooldown = 10;
-		
-	}
-
+		slowMotionToggleCooldown = 10;	}
 	
 	@Override
 	public void Move() {

@@ -1,24 +1,20 @@
 package Movement;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 
-public class StraightLineController implements iMovementController {
+public class StraightLineController extends Movement {
 	
-	public float ySpeed;
-	public Texture img;
-	public Sprite sprite;
 
-	public StraightLineController(float speed, Texture _img)
-	{
-		img = _img;
-		ySpeed = speed;
-		sprite = new Sprite(img);
+	public StraightLineController(float speed, Texture _img) {
+		super(speed, _img);
+		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	public void Move() {
-		sprite.translateY(ySpeed);
+		sprite.translateY(ySpeed *  Gdx.graphics.getDeltaTime());
 	}
 
 }

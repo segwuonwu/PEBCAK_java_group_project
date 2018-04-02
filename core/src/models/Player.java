@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
+import Movement.Movement;
 import Movement.PlayerMovementController;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -19,12 +20,12 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 public class Player{
 
 	int health;
-	public PlayerMovementController movement;
+	public Movement movement;
 	
 	public Player()
 	{
 		health = 100;
-		movement = new PlayerMovementController();	
+		movement = new PlayerMovementController(1f, new Texture("player.png"));	
 	}
 	
 	public void move() {

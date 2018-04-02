@@ -1,31 +1,28 @@
 package models;
 
-import com.badlogic.gdx.ApplicationAdapter;
-import com.badlogic.gdx.Game;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.math.Vector3;
 
-import Movement.StraightLineController;
-
-import com.badlogic.gdx.Input.Keys;
+import Factory.BulletFactory;
+import Factory.MovementFactory;
+import Movement.Movement;
 
 public abstract class Enemy {
 	
 	private String enemyType;
 	private int health;
+	private float lastShot;
 	//add bulletType type when bullet class implemented
 	//Physics speed?
-	public StraightLineController movement;
+	MovementFactory mFac;
+	BulletFactory bFac;
+	public Movement movement;
 	
-	public Enemy(String enemyType, Texture img, int health, int speed) {
+	public Enemy(String enemyType, int health) {
+		mFac = new MovementFactory();
+		bFac = new BulletFactory();
 		this.enemyType = enemyType;
 		this.health = health;
-		movement = new StraightLineController( -2f, img);
+		this.lastShot = 0;
 	}
 	
 	
@@ -52,6 +49,15 @@ public abstract class Enemy {
 	}
 	public void setSpeed(int speed) {
 		this.movement.ySpeed = speed;
+	}
+	public Bullet shoot(float time) {
+		Bullet newBullet = null;
+		lastShot += time;
+		if( (lastShot - time) >= .5f ) {
+		newBullet = bFac.Create("bulletA", this.movement.sprite.getX() + 10, this.movement.sprite.getY() - 20, -100f);
+		}
+		
+		return newBullet;
 	}
 
 }

@@ -7,9 +7,8 @@ public class EnemyMidBoss extends Enemy {
 	public EnemyMidBoss() {
 		//hard coded test enemy
 		//add unique functionality to this class as well
-		super("EnemyMidBoss", new Texture("EnemyMidBoss.jpg"), 100, 3);
-		this.movement.sprite.setX(500f);
-		this.movement.sprite.setY(500f);
+		super("EnemyMidBoss", 100);
+		movement = mFac.Create("straight", new Texture("EnemyMidBoss.jpg"), 500, 400, -5f);
 	}
 	
 }
