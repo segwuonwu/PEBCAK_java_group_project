@@ -38,5 +38,8 @@ public class Player{
 			return true;
 		return false;
 	}
+	public String getHealth() {
+		return Integer.toString(this.health);
+	}
 	
 }
