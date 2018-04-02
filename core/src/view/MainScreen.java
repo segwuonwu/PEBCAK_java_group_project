@@ -100,7 +100,7 @@ public class MainScreen implements Screen {
 		player.move();
 		for (Enemy en : Elist) {
 			en.movement.Move();
-			Bullet b = en.shoot(delta, "bulletA");
+			Bullet b = en.shoot(delta, "bulletA", "zigzag");
 			if (b != null) {
 				bulletsEnemy.add(b);
 			}
@@ -152,7 +152,7 @@ public class MainScreen implements Screen {
 		if (Gdx.input.isKeyJustPressed(Keys.SPACE) && shootTimer >= .1f) {
 
 			shootTimer = 0;
-			bulletsPlayer.add(Bfactory.Create("bulletA", player.movement.sprite.getX() + 15, player.movement.sprite.getY() + 22, 300f));
+			bulletsPlayer.add(Bfactory.Create("straight", "bulletA", player.movement.sprite.getX() + 15, player.movement.sprite.getY() + 22, 300f));
 
 		}
 
@@ -207,19 +207,16 @@ public class MainScreen implements Screen {
 	@Override
 	public void pause() {
 		// TODO Auto-generated method stub
-
 	}
 
 	@Override
 	public void resume() {
 		// TODO Auto-generated method stub
-
 	}
 
 	@Override
 	public void hide() {
 		// TODO Auto-generated method stub
-
 	}
 
 	@Override

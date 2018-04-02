@@ -6,6 +6,7 @@ import Movement.Movement;
 import Movement.RandomMovementController;
 import Movement.StationaryController;
 import Movement.StraightLineController;
+import Movement.ZigZagController;
 
 public class MovementFactory {
 
@@ -22,6 +23,9 @@ public class MovementFactory {
 		}
 		else if( type == "stationary") {
 			mov = new StationaryController(speed, _img);
+		}
+		else if(type == "zigzag") {
+			mov = new ZigZagController(speed, _img);
 		}
 		mov.sprite.setX(_x);
 		mov.sprite.setY(_y);
