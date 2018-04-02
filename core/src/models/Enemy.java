@@ -10,7 +10,7 @@ public abstract class Enemy {
 	
 	private String enemyType;
 	private int health;
-	private float lastShot;
+	protected float lastShot;
 	//add bulletType type when bullet class implemented
 	//Physics speed?
 	MovementFactory mFac;
@@ -51,11 +51,11 @@ public abstract class Enemy {
 		this.health = health;
 	}
 
-	public Bullet shoot(float time, String bulletType) {
+	public Bullet shoot(float time, String bulletType, String MovementType) {
 		Bullet newBullet = null;
 		lastShot += time;
 		if( (lastShot - time) >= 2f ) {
-		newBullet = bFac.Create(bulletType, this.movement.sprite.getX() + 10, this.movement.sprite.getY() - 20, -100f);
+		newBullet = bFac.Create(MovementType, bulletType, this.movement.sprite.getX() + 10, this.movement.sprite.getY() - 20, -100f);
 		lastShot = 0;
 		}
 		
