@@ -15,25 +15,25 @@ public class PlayerMovementController extends Movement{
 	
 	public PlayerMovementController(float speed, Texture _img) {
 		super(speed, _img);
-		sprite.setX(0f);
-		sprite.setY(0f);
-		xSpeed = 5f;
-		ySpeed = 3f;
-		xSpeedSlow = 2f;
-		ySpeedSlow = 1f;
-		slowMotionToggleCooldown = 10;	}
+		this.sprite.setX(0f);
+		this.sprite.setY(0f);
+		this.xSpeed = 5f;
+		this.ySpeed = 3f;
+		this.xSpeedSlow = 2f;
+		this.ySpeedSlow = 1f;
+		this.slowMotionToggleCooldown = 10;	}
 	
 	@Override
 	public void Move() {
 		// TODO Auto-generated method stub
 		if (Gdx.input.isKeyPressed(Input.Keys.Z) && slowMotionToggleCooldown <= 0)
 		{
-			slowMotionEnabled = !slowMotionEnabled;
-			slowMotionToggleCooldown = 1;
+			this.slowMotionEnabled = !slowMotionEnabled;
+			this.slowMotionToggleCooldown = 1;
 		}
 		if (!Gdx.input.isKeyPressed(Input.Keys.Z))
 		{
-			slowMotionToggleCooldown--;
+			this.slowMotionToggleCooldown--;
 		}
 		
 		
@@ -59,22 +59,22 @@ public class PlayerMovementController extends Movement{
 		
 		if (sprite.getX() < 0f)                 //left
 		{
-			sprite.setX(0f);
+			this.sprite.setX(0f);
 		}
 		else if (sprite.getX() > RightBound)    //right
 		{
-			sprite.setX(RightBound);
+			this.sprite.setX(RightBound);
 		}
 		
 		
 		if (sprite.getY() < 0f)                 //bottom
 		{
-			sprite.setY(0f);
+			this.sprite.setY(0f);
 		}
 		
 		if (sprite.getY() > UpperBound)         //top
 		{
-			sprite.setY(UpperBound);
+			this.sprite.setY(UpperBound);
 		}
 		
 	}
@@ -84,19 +84,19 @@ public class PlayerMovementController extends Movement{
 	{
 		if (Gdx.input.isKeyPressed(Input.Keys.LEFT))
 		{
-			sprite.translateX(-xSpeed);
+			this.sprite.translateX(-xSpeed);
 		}
 		else if (Gdx.input.isKeyPressed(Input.Keys.RIGHT))
 		{
-			sprite.translateX(xSpeed);
+			this.sprite.translateX(xSpeed);
 		}
 		if (Gdx.input.isKeyPressed(Input.Keys.UP))
 		{
-			sprite.translateY(ySpeed);
+			this.sprite.translateY(ySpeed);
 		}
 		else if (Gdx.input.isKeyPressed(Input.Keys.DOWN))
 		{
-			sprite.translateY(-ySpeed);
+			this.sprite.translateY(-ySpeed);
 		}
 		clampPlayerToScreen();
 	}
@@ -105,19 +105,19 @@ public class PlayerMovementController extends Movement{
 	{
 		if (Gdx.input.isKeyPressed(Input.Keys.LEFT))
 		{
-			sprite.translateX(-xSpeedSlow);
+			this.sprite.translateX(-xSpeedSlow);
 		}
 		else if (Gdx.input.isKeyPressed(Input.Keys.RIGHT))
 		{
-			sprite.translateX(xSpeedSlow);
+			this.sprite.translateX(xSpeedSlow);
 		}
 		if (Gdx.input.isKeyPressed(Input.Keys.UP))
 		{
-			sprite.translateY(ySpeedSlow);
+			this.sprite.translateY(ySpeedSlow);
 		}
 		else if (Gdx.input.isKeyPressed(Input.Keys.DOWN))
 		{
-			sprite.translateY(-ySpeedSlow);
+			this.sprite.translateY(-ySpeedSlow);
 		}
 		clampPlayerToScreen();
 	}

@@ -9,10 +9,10 @@ public class EnemyA extends Enemy {
 	public EnemyA() {
 		//hard coded test enemy
 		//add unique functionality to this class as well
-		super("EnemyA", 200);
+		super("EnemyA", 1);
 		Random rand = new Random();
-		movement = mFac.Create("straight", new Texture("EnemyA.jpg"), rand.nextInt(400), 400, -10f);
-		this.movement.sprite.setX(500f);
-		this.movement.sprite.setY(500f);
+		float x = rand.nextInt(600);
+		float y = rand.nextInt(200) + 500;
+		this.movement = mFac.Create("straight", new Texture("EnemyA.jpg"), x, y, -10f);
 	}
 }

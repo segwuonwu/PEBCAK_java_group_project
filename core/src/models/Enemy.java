@@ -41,20 +41,22 @@ public abstract class Enemy {
 	protected int getHealth() {
 		return health;
 	}
+	public Boolean death() {
+		this.health = this.health - 1;
+		if(this.health <= 0)
+			return true;
+		return false;
+	}
 	protected void setHealth(int health) {
 		this.health = health;
 	}
-	public float getSpeed() {
-		return movement.ySpeed;
-	}
-	public void setSpeed(int speed) {
-		this.movement.ySpeed = speed;
-	}
-	public Bullet shoot(float time) {
+
+	public Bullet shoot(float time, String bulletType) {
 		Bullet newBullet = null;
 		lastShot += time;
-		if( (lastShot - time) >= .5f ) {
-		newBullet = bFac.Create("bulletA", this.movement.sprite.getX() + 10, this.movement.sprite.getY() - 20, -100f);
+		if( (lastShot - time) >= 2f ) {
+		newBullet = bFac.Create(bulletType, this.movement.sprite.getX() + 10, this.movement.sprite.getY() - 20, -100f);
+		lastShot = 0;
 		}
 		
 		return newBullet;

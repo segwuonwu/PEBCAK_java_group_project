@@ -20,13 +20,13 @@ public abstract class Bullet {
 	public boolean remove = false;
 	
 	public Bullet(float _x, float _y, float speed) {
-		movement = new StraightLineController( speed, new Texture("bullet.png"));
-		movement.sprite.setY(_y);
-		movement.sprite.setX(_x);
+		this.movement = new StraightLineController( speed, new Texture("bullet.png"));
+		this.movement.sprite.setY(_y);
+		this.movement.sprite.setX(_x);
 	}
 
 	public Texture getImg() {
-		return movement.img;
+		return this.movement.img;
 	}
 	
 }

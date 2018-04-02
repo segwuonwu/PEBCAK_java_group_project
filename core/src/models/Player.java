@@ -24,12 +24,19 @@ public class Player{
 	
 	public Player()
 	{
-		health = 100;
+		health = 5;
 		movement = new PlayerMovementController(1f, new Texture("player.png"));	
 	}
 	
 	public void move() {
 		movement.Move();
+	}
+	
+	public boolean death() {
+		this.health = this.health - 1;
+		if(this.health <= 0)
+			return true;
+		return false;
 	}
 	
 }

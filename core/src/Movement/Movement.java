@@ -11,9 +11,9 @@ public abstract class Movement implements iMovementController{
 
 	public Movement(float speed, Texture _img)
 	{
-		img = _img;
-		ySpeed = speed;
-		xSpeed = 0;
-		sprite = new Sprite(img);
+		this.img = _img;
+		this.ySpeed = speed;
+		this.xSpeed = 0;
+		this.sprite = new Sprite(img);
 	}
 }

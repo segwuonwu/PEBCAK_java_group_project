@@ -5,16 +5,17 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 
 public class StraightLineController extends Movement {
-	
+	 public final float ySpeed;
 
 	public StraightLineController(float speed, Texture _img) {
 		super(speed, _img);
+		this.ySpeed = speed;
 		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	public void Move() {
-		sprite.translateY(ySpeed *  Gdx.graphics.getDeltaTime());
+		this.sprite.translateY(this.ySpeed *  Gdx.graphics.getDeltaTime());
 	}
 
 }
