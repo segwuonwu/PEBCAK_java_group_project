@@ -105,6 +105,7 @@ public class MainScreen implements Screen {
 		player.move();
 		for (Enemy en : Elist) {
 			en.movement.Move();
+			//ZIGZAG IS A PLACEHOLDER, CURRENTLY PASSED IN VALUE DOESNT MATTER
 			Bullet b = en.shoot(delta, "bulletA", "zigzag");
 			if (b != null) {
 				bulletsEnemy.add(b);

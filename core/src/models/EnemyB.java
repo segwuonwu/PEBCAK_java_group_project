@@ -17,4 +17,14 @@ public class EnemyB extends Enemy {
 		movement = mFac.Create(movementType, new Texture("cat.jpg"), x, y, -40f);
 	}
 
+	@Override
+	public Bullet shoot(float time, String bulletType, String MovementType) {
+		Bullet newBullet = null;
+		lastShot += time;
+		if( (lastShot - time) >= 2f ) {
+		newBullet = bFac.Create(MovementType, "zigzag", this.movement.sprite.getX() + 10, this.movement.sprite.getY() - 20, -100f);
+		lastShot = 0;
+		}
+		return newBullet;
+	}
 }
