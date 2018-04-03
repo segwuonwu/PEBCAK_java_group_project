@@ -11,7 +11,7 @@ import Movement.Movement;
 public abstract class Enemy {
 	
 	private String enemyType;
-	private int health;
+	protected int health;
 	protected float lastShot;
 	//add bulletType type when bullet class implemented
 	//Physics speed?
@@ -43,7 +43,7 @@ public abstract class Enemy {
 	protected int getHealth() {
 		return health;
 	}
-	public Boolean death() {
+	public Boolean death(float timer) {
 		this.health = this.health - 1;
 		if(this.health <= 0)
 			return true;
@@ -51,6 +51,10 @@ public abstract class Enemy {
 	}
 	protected void setHealth(int health) {
 		this.health = health;
+	}
+	
+	public boolean bosstimer(float timer) {
+		return false;
 	}
 
 	public void shoot(float time, String bulletType, String MovementType,ArrayList<Bullet> bulletList ) {

@@ -30,4 +30,10 @@ public class EnemyFinalBoss extends Enemy {
 		}
 	
 }
+	@Override
+	public boolean bosstimer(float timer) {
+		if (timer > 80)
+			return true;
+		return false;
+	}
 }
