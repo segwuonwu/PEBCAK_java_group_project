@@ -124,6 +124,9 @@ public class MainScreen implements Screen {
 							if(e.death())
 								i.remove();
 					}
+					if(b.movement.sprite.getX() <= 0) {
+						bulletsIterator.remove();
+					}
 				}
 			} catch (Exception e) {
 			}
@@ -158,7 +161,7 @@ public class MainScreen implements Screen {
 		if (Gdx.input.isKeyJustPressed(Keys.SPACE) && shootTimer >= .1f) {
 
 			shootTimer = 0;
-			bulletsPlayer.add(Bfactory.Create("straight", "bulletA", player.movement.sprite.getX() + 15, player.movement.sprite.getY() + 22, 300f));
+			bulletsPlayer.add(Bfactory.Create("straight", "bulletB", player.movement.sprite.getX() + 15, player.movement.sprite.getY() + 22, 300f));
 
 		}
 
