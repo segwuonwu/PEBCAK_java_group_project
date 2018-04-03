@@ -29,7 +29,10 @@ public class MainScreen implements Screen {
 	BitmapFont timerfont;
 	BitmapFont space;
 	float timeAux;
-	float BossTimer;
+	float BossTimer1;
+	float BossTimer2;
+	boolean boss1;
+	boolean boss2;
 
 	// Creating Factory for enemy's and a list to store them in
 	EnemyFactory Efactory = new EnemyFactory();
@@ -62,6 +65,10 @@ public class MainScreen implements Screen {
 		box.width = 64;
 		box.height = 64;
 		timeAux = 0;
+		BossTimer2 = 0;
+		BossTimer2 = 0;
+		boss1 = false;
+		boss2 = false;
 
 
 		font = new BitmapFont();
@@ -84,26 +91,29 @@ public class MainScreen implements Screen {
 	@Override
 	public void render(float delta) {
 
-		if (timeAux >= 5) { // 10 seconds
+		BossTimer1 += delta;
+		BossTimer2 += delta;
+		if (timeAux >= 5 && (BossTimer1 <= 60 || BossTimer1 >= 75) && (BossTimer2 <= 120 || BossTimer2 >= 145)) { // 10 seconds
 			enemyWave(Elist);
 			timeAux = 0;
 		} else {
 			timeAux += delta;
 		}
-		if (BossTimer >= 60) {
+		if (BossTimer1 >= 60 && boss1 == false) {
 			Elist.add(Efactory.Create("EnemyMidBoss", "stationary"));
+			boss1 = true;
 		}
-		if (BossTimer >= 120) {
+		if (BossTimer2 >= 120  && boss2 == false) {
 			Elist.add(Efactory.Create("EnemyFinalBoss", "stationary"));
+			boss2 = true;
 		}
 
 		player.move();
 		for (Enemy en : Elist) {
 			en.movement.Move();
-			Bullet b = en.shoot(delta, "bulletA", "zigzag");
-			if (b != null) {
-				bulletsEnemy.add(b);
-			}
+			//ZIGZAG IS A PLACEHOLDER, CURRENTLY PASSED IN VALUE DOESNT MATTER
+			en.shoot(delta, "bulletA", "zigzag", bulletsEnemy);
+			
 		}
 		Iterator<Bullet> bulletsIterator = bulletsPlayer.iterator();
 		while (bulletsIterator.hasNext()) {
@@ -117,6 +127,9 @@ public class MainScreen implements Screen {
 						bulletsIterator.remove();
 							if(e.death())
 								i.remove();
+					}
+					if(b.movement.sprite.getX() <= 0) {
+						bulletsIterator.remove();
 					}
 				}
 			} catch (Exception e) {
@@ -152,7 +165,7 @@ public class MainScreen implements Screen {
 		if (Gdx.input.isKeyJustPressed(Keys.SPACE) && shootTimer >= .1f) {
 
 			shootTimer = 0;
-			bulletsPlayer.add(Bfactory.Create("straight", "bulletA", player.movement.sprite.getX() + 15, player.movement.sprite.getY() + 22, 300f));
+			bulletsPlayer.add(Bfactory.Create("straight", "bulletB", player.movement.sprite.getX() + 15, player.movement.sprite.getY() + 22, 300f));
 
 		}
 

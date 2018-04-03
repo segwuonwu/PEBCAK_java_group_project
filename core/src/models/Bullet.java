@@ -1,13 +1,8 @@
 package models;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.utils.TimeUtils;
-
 import Factory.MovementFactory;
 import Movement.Movement;
-import Movement.StraightLineController;
 
 public abstract class Bullet {
 	
