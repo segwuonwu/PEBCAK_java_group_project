@@ -1,5 +1,6 @@
 package models;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import Movement.Movement;
 import Movement.PlayerMovementController;
@@ -28,7 +29,10 @@ public class Player{
 		this.health = this.health - 1;
 		if(this.health <= 0)
 			return true;
+		this.movement.sprite.setX(300);
+		this.movement.sprite.setY(5);
 		return false;
+		
 	}
 	public String getHealth() {
 		return Integer.toString(this.health);

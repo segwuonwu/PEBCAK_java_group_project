@@ -31,6 +31,7 @@ public class MainScreen implements Screen {
 	float timeAux;
 	float BossTimer1;
 	float BossTimer2;
+	float deathTimer;
 	boolean boss1;
 	boolean boss2;
 
@@ -69,6 +70,7 @@ public class MainScreen implements Screen {
 		BossTimer2 = 0;
 		boss1 = false;
 		boss2 = false;
+		deathTimer = 0;
 
 
 		font = new BitmapFont();
@@ -93,6 +95,8 @@ public class MainScreen implements Screen {
 
 		BossTimer1 += delta;
 		BossTimer2 += delta;
+		deathTimer += delta;
+
 		if (timeAux >= 5 && (BossTimer1 <= 60 || BossTimer1 >= 75) && (BossTimer2 <= 120 || BossTimer2 >= 145)) { // 10 seconds
 			enemyWave(Elist);
 			timeAux = 0;
@@ -146,10 +150,12 @@ public class MainScreen implements Screen {
 			bounds.setPosition( bounds.x+(w-bounds.width)/2F, bounds.y+(h-bounds.height)/2);
 			if (enemyBullet.movement.sprite.getBoundingRectangle().overlaps(bounds)) {
 				bulletsIteratorEnemy.remove();
+				if(deathTimer >= 3f) {
 				if(player.death()) {
 					parent.changeScreen(MainGameClass.MENU);
 					}
-
+					deathTimer = 0;
+				}
 					//GAME OVER MESSAGE
 					//RETURN TO START SCREEN
 				}
