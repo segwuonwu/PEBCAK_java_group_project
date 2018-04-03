@@ -32,11 +32,17 @@ public class EnemyMidBoss extends Enemy {
 			bulletList.add(newBullet);
 			newBullet = bFac.Create("zigzag" ,"bulletA", this.movement.sprite.getX() + 70, this.movement.sprite.getY() - 20, -100f);
 			bulletList.add(newBullet);
-			newBullet = bFac.Create("straight" ,"bulletA", this.movement.sprite.getX() + 100, this.movement.sprite.getY() - 20, 100f);
+			newBullet = bFac.Create("straight" ,"bulletA", this.movement.sprite.getX() + 100, this.movement.sprite.getY() - 20, -100f);
 			bulletList.add(newBullet);
 			lastShot = 0;
 		}
 		
+	}
+	@Override
+	public boolean bosstimer(float timer) {
+		if (timer > 80)
+			return true;
+		return false;
 	}
 	
 }

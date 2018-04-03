@@ -93,6 +93,7 @@ public class MainScreen implements Screen {
 	@Override
 	public void render(float delta) {
 
+		//Can refactor this to use a single timer.... my bad -Kris
 		BossTimer1 += delta;
 		BossTimer2 += delta;
 		deathTimer += delta;
@@ -113,12 +114,18 @@ public class MainScreen implements Screen {
 		}
 
 		player.move();
-		for (Enemy en : Elist) {
+		Iterator<Enemy> enemyiter = Elist.iterator();
+		//sweet loop to check for boss timeout and move enemys
+		while (enemyiter.hasNext()) {
+			Enemy en = enemyiter.next();
+			if(en.bosstimer(BossTimer1))
+				enemyiter.remove();
 			en.movement.Move();
 			//ZIGZAG IS A PLACEHOLDER, CURRENTLY PASSED IN VALUE DOESNT MATTER
 			en.shoot(delta, "bulletA", "zigzag", bulletsEnemy);
-			
 		}
+		
+		//loop that moves player bullets and checks collision
 		Iterator<Bullet> bulletsIterator = bulletsPlayer.iterator();
 		while (bulletsIterator.hasNext()) {
 			Bullet b = bulletsIterator.next();
@@ -129,7 +136,7 @@ public class MainScreen implements Screen {
 					Enemy e = i.next();
 					if (e.movement.sprite.getBoundingRectangle().overlaps(b.movement.sprite.getBoundingRectangle())) {
 						bulletsIterator.remove();
-							if(e.death())
+							if(e.death(BossTimer1))
 								i.remove();
 					}
 					if(b.movement.sprite.getX() <= 0) {
@@ -139,6 +146,8 @@ public class MainScreen implements Screen {
 			} catch (Exception e) {
 			}
 		}
+		
+		//moves enemy bullets checks collision
 		Iterator<Bullet> bulletsIteratorEnemy = bulletsEnemy.iterator();
 		while (bulletsIteratorEnemy.hasNext()) {
 			Bullet enemyBullet = bulletsIteratorEnemy.next();
