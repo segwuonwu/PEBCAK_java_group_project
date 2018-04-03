@@ -29,7 +29,8 @@ public class MainScreen implements Screen {
 	BitmapFont timerfont;
 	BitmapFont space;
 	float timeAux;
-	float BossTimer;
+	float BossTimer1;
+	float BossTimer2;
 
 	// Creating Factory for enemy's and a list to store them in
 	EnemyFactory Efactory = new EnemyFactory();
@@ -62,6 +63,8 @@ public class MainScreen implements Screen {
 		box.width = 64;
 		box.height = 64;
 		timeAux = 0;
+		BossTimer2 = 0;
+		BossTimer2 = 0;
 
 
 		font = new BitmapFont();
@@ -84,16 +87,18 @@ public class MainScreen implements Screen {
 	@Override
 	public void render(float delta) {
 
-		if (timeAux >= 5) { // 10 seconds
+		BossTimer1 += delta;
+		BossTimer2 += delta;
+		if (timeAux >= 5 && (BossTimer1 <= 60 || BossTimer1 >= 75) && (BossTimer2 <= 120 || BossTimer2 >= 145)) { // 10 seconds
 			enemyWave(Elist);
 			timeAux = 0;
 		} else {
 			timeAux += delta;
 		}
-		if (BossTimer >= 60) {
+		if (BossTimer1 >= 60) {
 			Elist.add(Efactory.Create("EnemyMidBoss", "stationary"));
 		}
-		if (BossTimer >= 120) {
+		if (BossTimer2 >= 120) {
 			Elist.add(Efactory.Create("EnemyFinalBoss", "stationary"));
 		}
 

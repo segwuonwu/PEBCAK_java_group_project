@@ -14,7 +14,7 @@ public class EnemyB extends Enemy {
 		Random rand = new Random();
 		float x = rand.nextInt(600);
 		float y = rand.nextInt(200) + 500;
-		movement = mFac.Create(movementType, new Texture("EnemyB.jpg"), x, y, -40f);
+		movement = mFac.Create(movementType, new Texture("cat.jpg"), x, y, -40f);
 	}
 
 }
