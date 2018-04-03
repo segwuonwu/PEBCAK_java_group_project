@@ -31,6 +31,8 @@ public class MainScreen implements Screen {
 	float timeAux;
 	float BossTimer1;
 	float BossTimer2;
+	boolean boss1;
+	boolean boss2;
 
 	// Creating Factory for enemy's and a list to store them in
 	EnemyFactory Efactory = new EnemyFactory();
@@ -65,6 +67,8 @@ public class MainScreen implements Screen {
 		timeAux = 0;
 		BossTimer2 = 0;
 		BossTimer2 = 0;
+		boss1 = false;
+		boss2 = false;
 
 
 		font = new BitmapFont();
@@ -95,21 +99,21 @@ public class MainScreen implements Screen {
 		} else {
 			timeAux += delta;
 		}
-		if (BossTimer1 >= 60) {
+		if (BossTimer1 >= 60 && boss1 == false) {
 			Elist.add(Efactory.Create("EnemyMidBoss", "stationary"));
+			boss1 = true;
 		}
-		if (BossTimer2 >= 120) {
+		if (BossTimer2 >= 120  && boss2 == false) {
 			Elist.add(Efactory.Create("EnemyFinalBoss", "stationary"));
+			boss2 = true;
 		}
 
 		player.move();
 		for (Enemy en : Elist) {
 			en.movement.Move();
 			//ZIGZAG IS A PLACEHOLDER, CURRENTLY PASSED IN VALUE DOESNT MATTER
-			Bullet b = en.shoot(delta, "bulletA", "zigzag");
-			if (b != null) {
-				bulletsEnemy.add(b);
-			}
+			en.shoot(delta, "bulletA", "zigzag", bulletsEnemy);
+			
 		}
 		Iterator<Bullet> bulletsIterator = bulletsPlayer.iterator();
 		while (bulletsIterator.hasNext()) {

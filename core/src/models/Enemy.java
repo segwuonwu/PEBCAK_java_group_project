@@ -1,5 +1,7 @@
 package models;
 
+import java.util.ArrayList;
+
 import com.badlogic.gdx.graphics.Texture;
 
 import Factory.BulletFactory;
@@ -51,15 +53,14 @@ public abstract class Enemy {
 		this.health = health;
 	}
 
-	public Bullet shoot(float time, String bulletType, String MovementType) {
+	public void shoot(float time, String bulletType, String MovementType,ArrayList<Bullet> bulletList ) {
 		Bullet newBullet = null;
 		lastShot += time;
 		if( (lastShot - time) >= 2f ) {
 		newBullet = bFac.Create(MovementType, bulletType, this.movement.sprite.getX() + 10, this.movement.sprite.getY() - 20, -100f);
 		lastShot = 0;
-		}
-		
-		return newBullet;
-	}
+		bulletList.add(newBullet);
+
+		}		}
 
 }

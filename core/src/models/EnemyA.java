@@ -1,5 +1,6 @@
 package models;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 import com.badlogic.gdx.graphics.Texture;
@@ -15,13 +16,13 @@ public class EnemyA extends Enemy {
 		this.movement = mFac.Create(movementType, new Texture("minion.jpg"), x, y, -10f);
 	}
 	@Override
-	public Bullet shoot(float time, String bulletType, String MovementType) {
+	public void shoot(float time, String bulletType, String MovementType, ArrayList<Bullet> bulletList) {
 		Bullet newBullet = null;
 		lastShot += time;
 		if( (lastShot - time) >= 2f ) {
 		newBullet = bFac.Create("straight", "bulletA", this.movement.sprite.getX() + 10, this.movement.sprite.getY() - 20, -100f);
 		lastShot = 0;
+		bulletList.add(newBullet);
 		}
-		return newBullet;
 	}
 }
