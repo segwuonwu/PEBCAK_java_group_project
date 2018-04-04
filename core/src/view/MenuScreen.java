@@ -34,13 +34,10 @@ public class MenuScreen implements Screen{
 		
 		Skin skin = new Skin(Gdx.files.internal("glassy/skin/glassy-ui.json"));
 		TextButton newGame = new TextButton("New Game", skin);
-		TextButton preferences = new TextButton("Preferences", skin);
 		TextButton exit = new TextButton("Exit", skin);
 		
 		table.add(newGame).fillX().uniformX();
 		table.row().pad(10, 0, 10, 0);
-		table.add(preferences).fillX().uniformX();
-		table.row();
 		table.add(exit).fillX().uniformX();
 		
 		exit.addListener(new ChangeListener() {
@@ -55,12 +52,7 @@ public class MenuScreen implements Screen{
 				parent.changeScreen(MainGameClass.APPLICATION);
 			}
 		});
-		preferences.addListener(new ChangeListener() {
-			@Override
-			public void changed(ChangeEvent event, Actor actor) {
-				parent.changeScreen(MainGameClass.PREFERENCES);
-			}
-		});
+
 		
 	}
 

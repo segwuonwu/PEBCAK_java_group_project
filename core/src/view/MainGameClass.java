@@ -9,12 +9,16 @@ public class MainGameClass extends Game {
 	private MenuScreen menuScreen;
 	private MainScreen mainScreen;
 	private EndScreen endScreen;
+	private VictoryScreen victory;
+
 	
 	 
 	public final static int MENU = 0;
 	public final static int PREFERENCES = 1;
 	public final static int APPLICATION = 2;
 	public final static int ENDGAME = 3;
+	public final static int VICTORY = 4;
+
 	
 	@Override
 	public void create () {
@@ -41,6 +45,11 @@ public class MainGameClass extends Game {
 				if(endScreen == null) endScreen = new EndScreen(this);
 				this.setScreen(endScreen);
 				break;
+			case VICTORY:
+				if(victory == null) victory = new VictoryScreen(this);
+				this.setScreen(victory);
+				break;
+				
 		}
 	}
 	

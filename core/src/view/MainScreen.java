@@ -98,7 +98,7 @@ public class MainScreen implements Screen {
 		BossTimer2 += delta;
 		deathTimer += delta;
 
-		if (timeAux >= 5 && (BossTimer1 <= 60 || BossTimer1 >= 75) && (BossTimer2 <= 120 || BossTimer2 >= 145)) { // 10 seconds
+		if (timeAux >= 5 && (BossTimer1 <= 60 || BossTimer1 >= 75) && (BossTimer2 <= 120)) { // 10 seconds
 			enemyWave(Elist);
 			timeAux = 0;
 		} else {
@@ -112,10 +112,16 @@ public class MainScreen implements Screen {
 			Elist.add(Efactory.Create("EnemyFinalBoss", "stationary"));
 			boss2 = true;
 		}
+		if(boss2 == true && Elist.isEmpty())
+			parent.changeScreen(MainGameClass.VICTORY);
+
+			
 
 		player.move();
 		Iterator<Enemy> enemyiter = Elist.iterator();
 		//sweet loop to check for boss timeout and move enemys
+		try {
+
 		while (enemyiter.hasNext()) {
 			Enemy en = enemyiter.next();
 			if(en.bosstimer(BossTimer1))
@@ -123,6 +129,10 @@ public class MainScreen implements Screen {
 			en.movement.Move();
 			//ZIGZAG IS A PLACEHOLDER, CURRENTLY PASSED IN VALUE DOESNT MATTER
 			en.shoot(delta, "bulletA", "zigzag", bulletsEnemy);
+			if(en.movement.sprite.getY() <= 0)
+				enemyiter.remove();
+		}
+		} catch (Exception e) {
 		}
 		
 		//loop that moves player bullets and checks collision
@@ -139,7 +149,7 @@ public class MainScreen implements Screen {
 							if(e.death(BossTimer1))
 								i.remove();
 					}
-					if(b.movement.sprite.getX() <= 0) {
+					if(b.movement.sprite.getY() <= 0) {
 						bulletsIterator.remove();
 					}
 				}
@@ -149,6 +159,8 @@ public class MainScreen implements Screen {
 		
 		//moves enemy bullets checks collision
 		Iterator<Bullet> bulletsIteratorEnemy = bulletsEnemy.iterator();
+		try {
+
 		while (bulletsIteratorEnemy.hasNext()) {
 			Bullet enemyBullet = bulletsIteratorEnemy.next();
 			enemyBullet.movement.Move();
@@ -161,14 +173,17 @@ public class MainScreen implements Screen {
 				bulletsIteratorEnemy.remove();
 				if(deathTimer >= 3f) {
 				if(player.death()) {
-					parent.changeScreen(MainGameClass.MENU);
+					parent.changeScreen(MainGameClass.PREFERENCES);
 					}
 					deathTimer = 0;
 				}
-					//GAME OVER MESSAGE
-					//RETURN TO START SCREEN
+			if(enemyBullet.movement.sprite.getY() <= 0)
+				bulletsIteratorEnemy.remove();
+
 				}
 			}
+		} catch (Exception e) {
+		}
 		
 
 		Gdx.gl.glClearColor(1, 0, 0, 1);

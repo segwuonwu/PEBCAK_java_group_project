@@ -15,7 +15,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener.ChangeEvent;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
-public class PreferencesScreen implements Screen {
+public class VictoryScreen implements Screen {
 
 	private MainGameClass parent;
 	private Stage stage;
@@ -28,7 +28,7 @@ public class PreferencesScreen implements Screen {
 
 
 	 
-	public PreferencesScreen(MainGameClass mainGameClass){
+	public VictoryScreen(MainGameClass mainGameClass){
 		parent = mainGameClass;    
 		stage = new Stage(new ScreenViewport());
 		Gdx.input.setInputProcessor(stage);
@@ -37,6 +37,8 @@ public class PreferencesScreen implements Screen {
 		font = new BitmapFont();
 		batch = new SpriteBatch();
 		img = new Texture("konosuba-2-aqua-drinking.png");
+
+
 
 	}
 	
@@ -77,7 +79,7 @@ public class PreferencesScreen implements Screen {
 		stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
 		batch.begin();
 		batch.draw(img, 0, 0);
-		font.draw(batch, "GAME OVER", 500, 500);
+		font.draw(batch, "YOU WIN!!!!!!!!", 500, 500);
 		batch.end();
 		stage.draw();
 	}
