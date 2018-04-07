@@ -110,7 +110,9 @@ public class VictoryScreen implements Screen {
 
 	@Override
 	public void dispose() {
-		// TODO Auto-generated method stub
+		stage.dispose();	
+		batch.dispose();
+		img.dispose();
 		
 	}
 
