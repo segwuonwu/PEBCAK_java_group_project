@@ -6,6 +6,9 @@ import models.BulletB;
 
 public class BulletFactory {
 	
+	MovementFactory mFac = new MovementFactory();
+
+	
 	public BulletFactory() {}
 	
 	//change to pass in just a string and the sprite, get locations from sprite, type of bullet determines speed

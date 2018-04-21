@@ -30,11 +30,11 @@ public class MainGameClass extends Game {
 	public void changeScreen(int screen){
 		switch(screen){
 			case MENU:
-				if(menuScreen == null) menuScreen = new MenuScreen(this);
+				menuScreen = new MenuScreen(this);
 	                        this.setScreen(menuScreen);
 				break;
 			case PREFERENCES:
-				if(preferencesScreen == null) preferencesScreen = new PreferencesScreen(this);
+				preferencesScreen = new PreferencesScreen(this);
 				this.setScreen(preferencesScreen);
 				break;
 			case APPLICATION:
@@ -42,11 +42,11 @@ public class MainGameClass extends Game {
 				this.setScreen(mainScreen);
 				break;
 			case ENDGAME:
-				if(endScreen == null) endScreen = new EndScreen(this);
+				endScreen = new EndScreen(this);
 				this.setScreen(endScreen);
 				break;
 			case VICTORY:
-				if(victory == null) victory = new VictoryScreen(this);
+				victory = new VictoryScreen(this);
 				this.setScreen(victory);
 				break;
 				

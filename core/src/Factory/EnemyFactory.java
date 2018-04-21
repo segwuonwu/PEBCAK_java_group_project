@@ -12,19 +12,19 @@ public class EnemyFactory {
 
 	}
 	
-	public Enemy Create(String enemyType, String movementType) {
+	public Enemy Create(String enemyType, String movementType, String BulletType, String BulletMovement) {
 		Enemy enemy = null;
 		if (enemyType == "EnemyA") {
-			 enemy = new EnemyA(movementType);
+			 enemy = new EnemyA(movementType, BulletType, BulletMovement);
 		}
 		else if(enemyType == "EnemyB") {
-			 enemy = new EnemyB(movementType);
+			 enemy = new EnemyB(movementType, BulletType, BulletMovement);
 		}
 		else if(enemyType == "EnemyFinalBoss") {
-			 enemy = new EnemyFinalBoss(movementType);
+			 enemy = new EnemyFinalBoss(movementType, BulletType, BulletMovement);
 		}
 		else if(enemyType == "EnemyMidBoss") {
-			 enemy = new EnemyMidBoss(movementType);
+			 enemy = new EnemyMidBoss(movementType, BulletType, BulletMovement);
 		}
 		return enemy;
 	}

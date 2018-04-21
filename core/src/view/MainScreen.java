@@ -11,10 +11,14 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
+
+import Controllers.MainController;
 import Factory.BulletFactory;
 import Factory.EnemyFactory;
 import models.Bullet;
 import models.Enemy;
+import models.ObjectManager;
+import models.ObjectManagerInterface;
 import models.Player;
 
 public class MainScreen implements Screen {
@@ -28,35 +32,18 @@ public class MainScreen implements Screen {
 	BitmapFont font;
 	BitmapFont timerfont;
 	BitmapFont space;
-	float timeAux;
-	float BossTimer1;
-	float BossTimer2;
-	float deathTimer;
-	boolean boss1;
-	boolean boss2;
-
-	// Creating Factory for enemy's and a list to store them in
-	EnemyFactory Efactory = new EnemyFactory();
-	BulletFactory Bfactory = new BulletFactory();
-	ArrayList<Enemy> Elist = new ArrayList<Enemy>();
-
-	// player object does not need a factory
-	Player player;
-
+	MainController controller;
+	
 	int showtime = 0;
 	float deltaTime = 0;
 	CharSequence str;
 
-	float shootTimer; // for timing between pressing space and shooting bullets
 
-	// lists to store bullets
-	ArrayList<Bullet> bulletsPlayer; // store bullets created
-	ArrayList<Bullet> bulletsEnemy;
-
+	ObjectManagerInterface OM;
+	
 	public MainScreen(MainGameClass mainGameClass) {
 		parent = mainGameClass;
 		batch = new SpriteBatch();
-		player = new Player();
 		img = new Texture("galaxy.png");
 
 		// draw a box
@@ -65,23 +52,14 @@ public class MainScreen implements Screen {
 		box.y = 20;
 		box.width = 64;
 		box.height = 64;
-		timeAux = 0;
-		BossTimer2 = 0;
-		BossTimer2 = 0;
-		boss1 = false;
-		boss2 = false;
-		deathTimer = 0;
-
 
 		font = new BitmapFont();
-
 		timerfont = new BitmapFont();
-
 		space = new BitmapFont();
-		// for bullets
-		shootTimer = 0; // to test shooting bullets
-		bulletsPlayer = new ArrayList<Bullet>(); // store bullets created
-		bulletsEnemy = new ArrayList<Bullet>();
+
+		OM = new ObjectManager();
+		controller = new MainController(parent, OM);
+
 	}
 
 	@Override
@@ -93,111 +71,10 @@ public class MainScreen implements Screen {
 	@Override
 	public void render(float delta) {
 
-		//Can refactor this to use a single timer.... my bad -Kris
-		BossTimer1 += delta;
-		BossTimer2 += delta;
-		deathTimer += delta;
-
-		if (timeAux >= 5 && (BossTimer1 <= 60 || BossTimer1 >= 75) && (BossTimer2 <= 120)) { // 10 seconds
-			enemyWave(Elist);
-			timeAux = 0;
-		} else {
-			timeAux += delta;
-		}
-		if (BossTimer1 >= 60 && boss1 == false) {
-			Elist.add(Efactory.Create("EnemyMidBoss", "stationary"));
-			boss1 = true;
-		}
-		if (BossTimer2 >= 120  && boss2 == false) {
-			Elist.add(Efactory.Create("EnemyFinalBoss", "stationary"));
-			boss2 = true;
-		}
-		if(boss2 == true && Elist.isEmpty())
-			parent.changeScreen(MainGameClass.VICTORY);
-
-			
-
-		player.move();
-		Iterator<Enemy> enemyiter = Elist.iterator();
-		//sweet loop to check for boss timeout and move enemys
-		try {
-
-		while (enemyiter.hasNext()) {
-			Enemy en = enemyiter.next();
-			if(en.bosstimer(BossTimer1))
-				enemyiter.remove();
-			en.movement.Move();
-			//ZIGZAG IS A PLACEHOLDER, CURRENTLY PASSED IN VALUE DOESNT MATTER
-			en.shoot(delta, "bulletA", "zigzag", bulletsEnemy);
-			if(en.movement.sprite.getY() <= 0)
-				enemyiter.remove();
-		}
-		} catch (Exception e) {
-		}
-		
-		//loop that moves player bullets and checks collision
-		Iterator<Bullet> bulletsIterator = bulletsPlayer.iterator();
-		while (bulletsIterator.hasNext()) {
-			Bullet b = bulletsIterator.next();
-			b.movement.Move();
-			Iterator<Enemy> i = Elist.iterator();
-			try {
-				while (i.hasNext()) {
-					Enemy e = i.next();
-					if (e.movement.sprite.getBoundingRectangle().overlaps(b.movement.sprite.getBoundingRectangle())) {
-						bulletsIterator.remove();
-							if(e.death(BossTimer1))
-								i.remove();
-					}
-					if(b.movement.sprite.getY() <= 0) {
-						bulletsIterator.remove();
-					}
-				}
-			} catch (Exception e) {
-			}
-		}
-		
-		//moves enemy bullets checks collision
-		Iterator<Bullet> bulletsIteratorEnemy = bulletsEnemy.iterator();
-		try {
-
-		while (bulletsIteratorEnemy.hasNext()) {
-			Bullet enemyBullet = bulletsIteratorEnemy.next();
-			enemyBullet.movement.Move();
-			Rectangle bounds = player.movement.sprite.getBoundingRectangle();
-			float w = bounds.getWidth();
-			float h = bounds.getHeight();
-			bounds.setSize(bounds.width*0.7f, bounds.height*.7f);
-			bounds.setPosition( bounds.x+(w-bounds.width)/2F, bounds.y+(h-bounds.height)/2);
-			if (enemyBullet.movement.sprite.getBoundingRectangle().overlaps(bounds)) {
-				bulletsIteratorEnemy.remove();
-				if(deathTimer >= 3f) {
-				if(player.death()) {
-					parent.changeScreen(MainGameClass.PREFERENCES);
-					}
-					deathTimer = 0;
-				}
-			if(enemyBullet.movement.sprite.getY() <= 0)
-				bulletsIteratorEnemy.remove();
-
-				}
-			}
-		} catch (Exception e) {
-		}
-		
-
+				
+		controller.update(delta);
 		Gdx.gl.glClearColor(1, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
-		shootTimer += delta; // for timing when space btn pressed and bullet fired
-
-		// if press space button, shoot two bullets
-		if (Gdx.input.isKeyJustPressed(Keys.SPACE) && shootTimer >= .1f) {
-
-			shootTimer = 0;
-			bulletsPlayer.add(Bfactory.Create("straight", "bulletB", player.movement.sprite.getX() + 15, player.movement.sprite.getY() + 22, 300f));
-
-		}
 
 		batch.begin();
 		batch.draw(img, 0, 0);
@@ -207,7 +84,13 @@ public class MainScreen implements Screen {
 		str = "TIMER: " + Float.toString(showtime);
 		timerfont.draw(batch, str, 300, 300);
 
-		batch.draw(player.movement.sprite, player.movement.sprite.getX(), player.movement.sprite.getY());
+		Player p = OM.getPlayer();
+		ArrayList<Enemy> Elist = OM.getEnemyList();
+		ArrayList<Bullet> bulletsPlayer = OM.getbulletsPlayer();
+		ArrayList<Bullet> bulletsEnemy = OM.getbulletsEnemy();
+	
+		
+		batch.draw(p.movement.sprite, p.movement.sprite.getX(), p.movement.sprite.getY());
 
 		// Draw all enemy's
 		for (Enemy en : Elist) {
@@ -223,7 +106,7 @@ public class MainScreen implements Screen {
 		}
 
 		font.draw(batch, "Toggle between slow mode using Z ", 400, 400);
-		font.draw(batch, "HEALTH: " + player.getHealth(), 10, 550);
+		font.draw(batch, "HEALTH: " + p.getHealth(), 10, 550);
 		space.draw(batch, "Spacebar to shoot !", 500, 500);
 
 		batch.end();
@@ -232,18 +115,6 @@ public class MainScreen implements Screen {
 	@Override
 	public void resize(int width, int height) {
 		// TODO Auto-generated method stub
-
-	}
-
-	public void enemyWave(ArrayList<Enemy> enemyList) {
-		Elist.add(Efactory.Create("EnemyA", "random"));
-		Elist.add(Efactory.Create("EnemyB", "straight"));
-		Elist.add(Efactory.Create("EnemyA", "straight"));
-		Elist.add(Efactory.Create("EnemyA", "straight"));
-		Elist.add(Efactory.Create("EnemyB", "random"));
-		Elist.add(Efactory.Create("EnemyA", "straight"));
-		Elist.add(Efactory.Create("EnemyB", "straight"));
-		Elist.add(Efactory.Create("EnemyA", "random"));
 
 	}
 
