@@ -18,6 +18,7 @@ public class MainController implements MainControllerInterface{
 	private MainGameClass parent;
 	private ObjectManagerInterface OM;
 	private CollisionControllerInterface CC;
+	private MovementControllerInterface MC;
 	
 	float timeAux;
 	float BossTimer1;
@@ -55,12 +56,6 @@ public class MainController implements MainControllerInterface{
 	
 	
 	public void update(float delta) {
-	
-		Player player = OM.getPlayer();		
-		
-		ArrayList<Enemy> Elist = OM.getEnemyList();
-		ArrayList<Bullet> PlayerBullet = OM.getbulletsPlayer();
-		ArrayList<Bullet> EnemyBullet = OM.getbulletsEnemy();
 		
 		//Update collision check if death
 		//Change view if dead, FIND WAY TO PUSH THAT TO VIEW
