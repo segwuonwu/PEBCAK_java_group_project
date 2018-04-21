@@ -11,6 +11,8 @@ import Movement.Movement;
 public abstract class Enemy {
 	
 	private String enemyType;
+	private String bulletType;
+	private String bulletMovement;
 	protected int health;
 	protected float lastShot;
 	//add bulletType type when bullet class implemented
@@ -19,14 +21,16 @@ public abstract class Enemy {
 	BulletFactory bFac;
 	public Movement movement;
 	
-	public Enemy(String enemyType, int health) {
+	public Enemy(String enemyType, int health, String bullet, String bulletMov) {
 		mFac = new MovementFactory();
 		bFac = new BulletFactory();
 		this.enemyType = enemyType;
 		this.health = health;
 		this.lastShot = 0;
+		bulletType = bullet;
+		bulletMovement = bulletMov;
+		
 	}
-	
 	
 	protected String getEnemyType() {
 		return enemyType;
@@ -56,7 +60,8 @@ public abstract class Enemy {
 	public boolean bosstimer(float timer) {
 		return false;
 	}
-
+	
+	//CHANGE HOW BULLETS ARE FIRED RN
 	public void shoot(float time, String bulletType, String MovementType,ArrayList<Bullet> bulletList ) {
 		Bullet newBullet = null;
 		lastShot += time;

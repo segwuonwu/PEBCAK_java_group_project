@@ -52,7 +52,6 @@ public class MovementController implements MovementControllerInterface{
 				EnemyToRemove.add(e);	
 		}
 		
-		
 		for(Enemy er: EnemyToRemove) {
 			OM.removeEnemy(er);
 		}

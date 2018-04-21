@@ -12,10 +12,10 @@ public class EnemyFactory {
 
 	}
 	
-	public Enemy Create(String enemyType, String movementType) {
+	public Enemy Create(String enemyType, String movementType, String BulletType, String BulletMovement) {
 		Enemy enemy = null;
 		if (enemyType == "EnemyA") {
-			 enemy = new EnemyA(movementType);
+			 enemy = new EnemyA(movementType, BulletType, BulletMovement);
 		}
 		else if(enemyType == "EnemyB") {
 			 enemy = new EnemyB(movementType);

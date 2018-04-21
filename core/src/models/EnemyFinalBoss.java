@@ -6,10 +6,10 @@ import com.badlogic.gdx.graphics.Texture;
 
 public class EnemyFinalBoss extends Enemy {
 	
-	public EnemyFinalBoss(String movementType) {
+	public EnemyFinalBoss(String movementType, String BulletType, String BulletMovement) {
 		//hard coded test enemy
 		//add unique functionality to this class as well
-		super("EnemyFinalBoss", 10);
+		super("EnemyFinalBoss", 10, BulletType, BulletMovement);
 		movement = mFac.Create(movementType, new Texture("EnemyFinalBoss.jpg"), 300, 500, -5f);
 	}
 	@Override
