@@ -18,13 +18,13 @@ public class EnemyFactory {
 			 enemy = new EnemyA(movementType, BulletType, BulletMovement);
 		}
 		else if(enemyType == "EnemyB") {
-			 enemy = new EnemyB(movementType);
+			 enemy = new EnemyB(movementType, BulletType, BulletMovement);
 		}
 		else if(enemyType == "EnemyFinalBoss") {
-			 enemy = new EnemyFinalBoss(movementType);
+			 enemy = new EnemyFinalBoss(movementType, BulletType, BulletMovement);
 		}
 		else if(enemyType == "EnemyMidBoss") {
-			 enemy = new EnemyMidBoss(movementType);
+			 enemy = new EnemyMidBoss(movementType, BulletType, BulletMovement);
 		}
 		return enemy;
 	}
