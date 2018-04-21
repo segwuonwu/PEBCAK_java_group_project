@@ -15,7 +15,8 @@ public class ObjectManager implements ObjectManagerInterface {
 	ArrayList<Bullet> bulletsPlayer;
 	ArrayList<Bullet> bulletsEnemy;
 	
-	ObjectManager(){
+	public ObjectManager(){
+		player = new Player();
 		Bfactory = new BulletFactory();
 		Efactory = new EnemyFactory();
 		Efactory = new EnemyFactory();
@@ -58,9 +59,9 @@ public class ObjectManager implements ObjectManagerInterface {
 	}
 
 	@Override
-	public void addEnemy(String type, String movement, String bullets) {
-		// TODO Auto-generated method stub
-		
+	public void addEnemy(String enemyType, String movementType, String BulletType, String BulletMovement) {
+		Elist.add(Efactory.Create(enemyType, movementType, BulletType, BulletMovement));
+
 	}
 
 	@Override
@@ -78,6 +79,21 @@ public class ObjectManager implements ObjectManagerInterface {
 	public void removeEnemyBullet(Bullet e) {
 		bulletsEnemy.remove(e);
 		
+	}
+
+	@Override
+	public void addPlayerBullet(Bullet e) {
+		bulletsPlayer.add(e);
+	}
+
+	@Override
+	public void addEnemyBullet(Bullet e) {
+		bulletsEnemy.add(e);
+	}
+
+	@Override
+	public void removAllEnemyBullets() {
+		bulletsEnemy.clear();
 	}
 
 }

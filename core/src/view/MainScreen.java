@@ -17,6 +17,8 @@ import Factory.BulletFactory;
 import Factory.EnemyFactory;
 import models.Bullet;
 import models.Enemy;
+import models.ObjectManager;
+import models.ObjectManagerInterface;
 import models.Player;
 
 public class MainScreen implements Screen {
@@ -31,29 +33,17 @@ public class MainScreen implements Screen {
 	BitmapFont timerfont;
 	BitmapFont space;
 	MainController controller;
-
-	// Creating Factory for enemy's and a list to store them in
-	EnemyFactory Efactory = new EnemyFactory();
-	BulletFactory Bfactory = new BulletFactory();
-	ArrayList<Enemy> Elist = new ArrayList<Enemy>();
-
-	// player object does not need a factory
-	Player player;
-
+	
 	int showtime = 0;
 	float deltaTime = 0;
 	CharSequence str;
 
-	float shootTimer; // for timing between pressing space and shooting bullets
 
-	// lists to store bullets
-	ArrayList<Bullet> bulletsPlayer; // store bullets created
-	ArrayList<Bullet> bulletsEnemy;
-
+	ObjectManagerInterface OM;
+	
 	public MainScreen(MainGameClass mainGameClass) {
 		parent = mainGameClass;
 		batch = new SpriteBatch();
-		player = new Player();
 		img = new Texture("galaxy.png");
 
 		// draw a box
@@ -66,11 +56,10 @@ public class MainScreen implements Screen {
 		font = new BitmapFont();
 		timerfont = new BitmapFont();
 		space = new BitmapFont();
-		
-		// for bullets
-		bulletsPlayer = new ArrayList<Bullet>(); // store bullets created
-		bulletsEnemy = new ArrayList<Bullet>();
-		controller = new MainController(parent, player, bulletsPlayer, bulletsEnemy, Elist);
+
+		OM = new ObjectManager();
+		controller = new MainController(parent, OM);
+
 	}
 
 	@Override
@@ -87,16 +76,6 @@ public class MainScreen implements Screen {
 		Gdx.gl.glClearColor(1, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-		shootTimer += delta; // for timing when space btn pressed and bullet fired
-
-		// if press space button, shoot two bullets
-		if (Gdx.input.isKeyJustPressed(Keys.SPACE) && shootTimer >= .1f) {
-
-			shootTimer = 0;
-			bulletsPlayer.add(Bfactory.Create("straight", "bulletB", player.movement.sprite.getX() + 15, player.movement.sprite.getY() + 22, 300f));
-
-		}
-
 		batch.begin();
 		batch.draw(img, 0, 0);
 
@@ -105,7 +84,13 @@ public class MainScreen implements Screen {
 		str = "TIMER: " + Float.toString(showtime);
 		timerfont.draw(batch, str, 300, 300);
 
-		batch.draw(player.movement.sprite, player.movement.sprite.getX(), player.movement.sprite.getY());
+		Player p = OM.getPlayer();
+		ArrayList<Enemy> Elist = OM.getEnemyList();
+		ArrayList<Bullet> bulletsPlayer = OM.getbulletsPlayer();
+		ArrayList<Bullet> bulletsEnemy = OM.getbulletsEnemy();
+	
+		
+		batch.draw(p.movement.sprite, p.movement.sprite.getX(), p.movement.sprite.getY());
 
 		// Draw all enemy's
 		for (Enemy en : Elist) {
@@ -121,7 +106,7 @@ public class MainScreen implements Screen {
 		}
 
 		font.draw(batch, "Toggle between slow mode using Z ", 400, 400);
-		font.draw(batch, "HEALTH: " + player.getHealth(), 10, 550);
+		font.draw(batch, "HEALTH: " + p.getHealth(), 10, 550);
 		space.draw(batch, "Spacebar to shoot !", 500, 500);
 
 		batch.end();

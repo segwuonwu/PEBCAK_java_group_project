@@ -3,7 +3,7 @@ package Controllers;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import com.sun.javafx.geom.Rectangle;
+import com.badlogic.gdx.math.Rectangle;
 
 import models.Bullet;
 import models.Enemy;
@@ -44,7 +44,9 @@ public class CollisionController implements CollisionControllerInterface{
 				while (i.hasNext()) {
 					Enemy e = i.next();
 					if (e.movement.sprite.getBoundingRectangle().overlaps(b.movement.sprite.getBoundingRectangle())) {
-						EnemyobjectsToRemove.add(e);
+						if(e.damage(1, delta)) {
+							EnemyobjectsToRemove.add(e);
+						}
 						BulletobjectsToRemove.add(b);
 					}
 					

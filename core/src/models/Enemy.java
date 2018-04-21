@@ -22,13 +22,14 @@ public abstract class Enemy {
 	public Movement movement;
 	
 	public Enemy(String enemyType, int health, String bullet, String bulletMov) {
+		
 		mFac = new MovementFactory();
 		bFac = new BulletFactory();
 		this.enemyType = enemyType;
 		this.health = health;
 		this.lastShot = 0;
-		bulletType = bullet;
-		bulletMovement = bulletMov;
+		setBulletType(bullet);
+		setBulletMovement(bulletMov);
 		
 	}
 	
@@ -47,11 +48,14 @@ public abstract class Enemy {
 	protected int getHealth() {
 		return health;
 	}
-	public Boolean death(float timer) {
-		this.health = this.health - 1;
-		if(this.health <= 0)
+	public Boolean death(float delta) {
+		if(health <= 0)
 			return true;
 		return false;
+	}
+	public Boolean damage(int damage, float delta) {
+		health -= damage;
+		return death(delta);
 	}
 	protected void setHealth(int health) {
 		this.health = health;
@@ -61,15 +65,31 @@ public abstract class Enemy {
 		return false;
 	}
 	
-	//CHANGE HOW BULLETS ARE FIRED RN
-	public void shoot(float time, String bulletType, String MovementType,ArrayList<Bullet> bulletList ) {
+	public Bullet shoot(float delta) {
 		Bullet newBullet = null;
-		lastShot += time;
-		if( (lastShot - time) >= 2f ) {
-		newBullet = bFac.Create(MovementType, bulletType, this.movement.sprite.getX() + 10, this.movement.sprite.getY() - 20, -100f);
+		lastShot += delta;
+		if( (lastShot - delta) >= 2f ) {
+		newBullet = bFac.Create(getBulletMovement(), getBulletType(), this.movement.sprite.getX() + 10, this.movement.sprite.getY() - 20, -100f);
 		lastShot = 0;
-		bulletList.add(newBullet);
+		}
+		
+		return newBullet;
+	}
 
-		}		}
+	public String getBulletMovement() {
+		return bulletMovement;
+	}
+
+	public void setBulletMovement(String bulletMovement) {
+		this.bulletMovement = bulletMovement;
+	}
+
+	public String getBulletType() {
+		return bulletType;
+	}
+
+	public void setBulletType(String bulletType) {
+		this.bulletType = bulletType;
+	}
 
 }

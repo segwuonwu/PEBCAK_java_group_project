@@ -48,7 +48,7 @@ public class MovementController implements MovementControllerInterface{
 		
 		for(Enemy e : eList) {
 			e.movement.Move();
-			if(e.movement.sprite.getX() <= -10 || e.movement.sprite.getX() <= x + 10 || e.movement.sprite.getY() <= 0)
+			if(e.movement.sprite.getX() <= -10 || e.movement.sprite.getX() >= x + 10 || e.movement.sprite.getY() <= 0)
 				EnemyToRemove.add(e);	
 		}
 		

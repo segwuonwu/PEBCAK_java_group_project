@@ -13,10 +13,13 @@ public interface ObjectManagerInterface {
 	int getGameState();
 	int getGameScore();
 	
-	void addEnemy(String type, String movement, String bullets);
+	void addEnemy(String enemyType, String movementType, String BulletType, String BulletMovement);
 	
 	void removeEnemy(Enemy e);
 	void removePlayerBullet(Bullet e);
 	void removeEnemyBullet(Bullet e);
+	void addPlayerBullet(Bullet e);
+	void addEnemyBullet(Bullet e);
+	void removAllEnemyBullets();
 	//Maybe getWave() ??
 }
