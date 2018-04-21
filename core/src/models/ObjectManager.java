@@ -57,4 +57,27 @@ public class ObjectManager implements ObjectManagerInterface {
 		return 0;
 	}
 
+	@Override
+	public void addEnemy(String type, String movement, String bullets) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void removeEnemy(Enemy e) {
+		Elist.remove(e);
+	}
+
+	@Override
+	public void removePlayerBullet(Bullet e) {
+		bulletsPlayer.remove(e);
+		
+	}
+
+	@Override
+	public void removeEnemyBullet(Bullet e) {
+		bulletsEnemy.remove(e);
+		
+	}
+
 }

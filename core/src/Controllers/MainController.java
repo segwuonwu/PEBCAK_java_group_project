@@ -17,6 +17,7 @@ public class MainController implements MainControllerInterface{
 
 	private MainGameClass parent;
 	private ObjectManagerInterface OM;
+	private CollisionControllerInterface CC;
 	
 	float timeAux;
 	float BossTimer1;
@@ -38,6 +39,7 @@ public class MainController implements MainControllerInterface{
 	public MainController(MainGameClass mainGameClass, ObjectManagerInterface om) {
 		
 		OM = om;
+		CC = new CollisionController(om);
 		parent = mainGameClass;
 		
 		showtime = 0;
@@ -55,13 +57,17 @@ public class MainController implements MainControllerInterface{
 	public void update(float delta) {
 	
 		Player player = OM.getPlayer();		
-		player.move();
 		
 		ArrayList<Enemy> Elist = OM.getEnemyList();
 		ArrayList<Bullet> PlayerBullet = OM.getbulletsPlayer();
 		ArrayList<Bullet> EnemyBullet = OM.getbulletsEnemy();
 		
-		
+		//Update collision check if death
+		//Change view if dead, FIND WAY TO PUSH THAT TO VIEW
+		if(!CC.update(player, Elist, PlayerBullet, EnemyBullet, delta)) {
+			parent.changeScreen(MainGameClass.PREFERENCES);
+		}
+
 		Iterator<Enemy> enemyiter = Elist.iterator();
 				//sweet loop to check for boss timeout and move enemys
 				try {
@@ -84,7 +90,7 @@ public class MainController implements MainControllerInterface{
 					Iterator<Enemy> i = Elist.iterator();
 					try {
 						while (i.hasNext()) {
-							Enemy e = i.next();
+							Enemy e = i.next();c
 							if (e.movement.sprite.getBoundingRectangle().overlaps(b.movement.sprite.getBoundingRectangle())) {
 								bulletsIterator.remove();
 									if(e.death(BossTimer1))

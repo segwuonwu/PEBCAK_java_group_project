@@ -14,5 +14,9 @@ public interface ObjectManagerInterface {
 	int getGameScore();
 	
 	void addEnemy(String type, String movement, String bullets);
+	
+	void removeEnemy(Enemy e);
+	void removePlayerBullet(Bullet e);
+	void removeEnemyBullet(Bullet e);
 	//Maybe getWave() ??
 }
