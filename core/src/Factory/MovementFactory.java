@@ -15,16 +15,16 @@ public class MovementFactory {
 	public Movement Create(String type, Texture _img, float _x, float _y, float speed) {
 		Movement mov = null;
 		
-		if(type == "straight") {
+		if(type.equals("straight")) {
 			mov = new StraightLineController(speed, _img);
 		}
-		else if( type == "random") {
+		else if(type.equals("random")) {
 			mov = new RandomMovementController(speed, _img);
 		}
-		else if( type == "stationary") {
+		else if(type.equals("stationary")) {
 			mov = new StationaryController(speed, _img);
 		}
-		else if(type == "zigzag") {
+		else if(type.equals("zigzag")) {
 			mov = new ZigZagController(speed, _img);
 		}
 		mov.sprite.setX(_x);

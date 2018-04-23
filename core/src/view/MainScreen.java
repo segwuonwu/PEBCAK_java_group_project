@@ -1,7 +1,21 @@
 package view;
 
 import java.util.ArrayList;
+import java.util.Dictionary;
 import java.util.Iterator;
+
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.*;
+
+import java.awt.print.Printable;
+import java.io.Console;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.Iterator;
+import java.util.Map;
+
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
@@ -34,6 +48,9 @@ public class MainScreen implements Screen {
 	BitmapFont space;
 	MainController controller;
 	
+	//list of enemny lists (waves)
+	ArrayList<ArrayList<Enemy>> waves;
+	
 	int showtime = 0;
 	float deltaTime = 0;
 	CharSequence str;
@@ -59,6 +76,9 @@ public class MainScreen implements Screen {
 
 		OM = new ObjectManager();
 		controller = new MainController(parent, OM);
+		
+		waves = new ArrayList<ArrayList<Enemy>>();
+		parseJSON();
 
 	}
 
@@ -110,6 +130,42 @@ public class MainScreen implements Screen {
 		space.draw(batch, "Spacebar to shoot !", 500, 500);
 
 		batch.end();
+	}
+
+	public void parseJSON() {
+	
+		EnemyFactory Efactory = new EnemyFactory();
+
+        try {
+			Object obj = new JSONParser().parse(new FileReader("config.json"));
+	        JSONObject json = (JSONObject) obj;
+	        JSONObject waves = (JSONObject) json.get("waves");
+	        
+	        for(int i=0;i<waves.size();i++) {
+	        	JSONObject wave = (JSONObject) waves.values().toArray()[i];
+	        	Long waveSize = (Long) wave.get("NumberOfEnemies");
+	        	
+	        	ArrayList<Enemy> _wave = new ArrayList<Enemy>();
+	        	for(int j=0; j<waveSize; j++) {
+	        		_wave.add(Efactory.Create((String) wave.get("EnemyType"),(String) wave.get("MovementType"), (String) wave.get("BulletType"), (String) wave.get("BulletMovement")));
+	        	}
+	        	
+	        	//waveBegins is the time during gameplay that wave first appears
+	        	//waveLength is their lifespan on screen
+	        	//do something with these variables when waves are developed further
+	        	Long waveBegins = (Long) wave.get("SpawnTime");
+	        	Long waveLength = (Long) wave.get("WaveLength");
+	        	
+	        	this.waves.add(_wave);
+	        }
+
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			System.out.println(e);
+		} 
+
+        System.out.println("here");
 	}
 
 	@Override
