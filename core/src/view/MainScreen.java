@@ -1,7 +1,21 @@
 package view;
 
 import java.util.ArrayList;
+import java.util.Dictionary;
 import java.util.Iterator;
+
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.*;
+
+import java.awt.print.Printable;
+import java.io.Console;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.Iterator;
+import java.util.Map;
+
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
@@ -34,6 +48,8 @@ public class MainScreen implements Screen {
 	BitmapFont space;
 	MainController controller;
 	
+	//list of enemny lists (waves)
+	
 	int showtime = 0;
 	float deltaTime = 0;
 	CharSequence str;
@@ -59,6 +75,7 @@ public class MainScreen implements Screen {
 
 		OM = new ObjectManager();
 		controller = new MainController(parent, OM);
+		
 
 	}
 
@@ -111,6 +128,8 @@ public class MainScreen implements Screen {
 
 		batch.end();
 	}
+
+
 
 	@Override
 	public void resize(int width, int height) {
