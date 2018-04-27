@@ -36,18 +36,21 @@ public class CollisionController implements CollisionControllerInterface{
 
 		
 		//loop that moves player bullets and checks collision
+		try {
 		Iterator<Bullet> bulletsIterator = pBullets.iterator();
 		while (bulletsIterator.hasNext()) {
 			Bullet b = bulletsIterator.next();
 			Iterator<Enemy> i = eList.iterator();
-			try {
+			
 				while (i.hasNext()) {
 					Enemy e = i.next();
 					if (e.movement.sprite.getBoundingRectangle().overlaps(b.movement.sprite.getBoundingRectangle())) {
 						if(e.damage(1, delta)) {
 							EnemyobjectsToRemove.add(e);
 						}
-						BulletobjectsToRemove.add(b);
+						
+						OM.removePlayerBullet(b);
+
 					}
 					
 					//ADD THIS TO MOVEMENT!!!
@@ -55,13 +58,16 @@ public class CollisionController implements CollisionControllerInterface{
 						bulletsIterator.remove();
 					}
 				}
+		}
 			} catch (Exception e) {
 			}
-		}
-		for(Bullet b : BulletobjectsToRemove)
-			OM.removeEnemyBullet(b);
+		
+
+		try {
 		for(Enemy e : EnemyobjectsToRemove)
 			OM.removeEnemy(e);
+		}catch (Exception e) {
+		}
 		
 		//clear list for re-use
 		BulletobjectsToRemove.clear();
@@ -96,8 +102,11 @@ public class CollisionController implements CollisionControllerInterface{
 		} catch (Exception e) {
 		}
 		
+		try {
 		for(Bullet b : BulletobjectsToRemove)
 			OM.removeEnemyBullet(b);
+		}catch (Exception e) {
+		}
 		
 	return true;
 	}
