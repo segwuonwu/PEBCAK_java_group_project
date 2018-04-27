@@ -14,7 +14,7 @@ import Movement.PlayerMovementController;
 
 public class Player{
 
-	int health;
+	public int health;
 	private boolean bomb;
 	float lastShot;
 	String currentBulletType;

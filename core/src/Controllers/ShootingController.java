@@ -27,6 +27,11 @@ public class ShootingController implements ShootingControllerInterface {
 		bombTimer += delta;
 		Player player = OM.getPlayer();
 		ArrayList<Enemy> eList = OM.getEnemyList();
+		
+		//ADD HEALTH CHEAT
+		if (Gdx.input.isKeyJustPressed(Keys.P)) {
+			player.health += 10;
+		}
 
 		if(bombTimer > 30f)
 			player.setBomb(true);

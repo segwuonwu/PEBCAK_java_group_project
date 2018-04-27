@@ -91,7 +91,7 @@ public class MainController implements MainControllerInterface{
 	        	}
 	        	
 	        	//waveBegins is the time during gameplay that wave first appears
-	        	//waveLength is their lifespan on screen
+	        	//waveLength is their time between spawns on screen
 	        	//do something with these variables when waves are developed further
 	        	Float waveBegins = Float.parseFloat( (String) wave.get("SpawnTime"));
 	        	Float waveLength = Float.parseFloat( (String) wave.get("WaveLength"));
