@@ -12,7 +12,7 @@ public class EnemyMidBoss extends Enemy {
 		//hard coded test enemy
 		//add unique functionality to this class as well
 		super("EnemyMidBoss", 5, BulletType, BulletMovement);
-		movement = mFac.Create(movementType, new Texture("EnemyMidBoss.jpg"), 300, 500, -5f);
+		movement = mFac.Create(movementType, new Texture("hitlerboss1.png"), 300, 500, -5f);
 		timer = 0;
 	}
 

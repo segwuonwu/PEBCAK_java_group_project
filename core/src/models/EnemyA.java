@@ -13,7 +13,7 @@ public class EnemyA extends Enemy {
 		Random rand = new Random();
 		float x = rand.nextInt(600);
 		float y = rand.nextInt(200) + 500;
-		this.movement = mFac.Create(movementType, new Texture("minion.jpg"), x, y, -10f);
+		this.movement = mFac.Create(movementType, new Texture("Stormtrooper10.png"), x, y, -10f);
 	}
 
 }
