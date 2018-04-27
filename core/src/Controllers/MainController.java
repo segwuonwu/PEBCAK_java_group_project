@@ -27,7 +27,7 @@ public class MainController implements MainControllerInterface{
 	private ShootingControllerInterface SC;
 	private WaveControllerInterface WC;
 	private boolean win;
-
+	private SoundController sc = SoundController.getSC();
 	float shootTimer; // for timing between pressing space and shooting bullets
 	
 
@@ -42,7 +42,7 @@ public class MainController implements MainControllerInterface{
 		parent = mainGameClass;
 				
 		parseJSON();
-		
+		sc.PlaySoundTrack();
 		win = false;
 
 	}
@@ -55,6 +55,7 @@ public class MainController implements MainControllerInterface{
 		//Pretty sure we can access delta time from anywhere, consider removing it from methods
 		if(!CC.update(delta)) {
 			//Change view if dead
+			sc.PauseSoundTrack();
 			return -1;
 		}
 		//Update movement of all objects
@@ -63,6 +64,7 @@ public class MainController implements MainControllerInterface{
 		if(!WC.update(delta)) {
 			//win condition
 			if(win) {
+				sc.PauseSoundTrack();
 				return 1;
 			}
 		}
@@ -93,8 +95,9 @@ public class MainController implements MainControllerInterface{
 	        	//waveBegins is the time during gameplay that wave first appears
 	        	//waveLength is their time between spawns on screen
 	        	//do something with these variables when waves are developed further
-	        	Float waveBegins = Float.parseFloat( (String) wave.get("SpawnTime"));
-	        	Float waveLength = Float.parseFloat( (String) wave.get("WaveLength"));
+	        	
+	        	Float waveBegins = Float.parseFloat( String.valueOf(wave.get("SpawnTime")));
+	        	Float waveLength = Float.parseFloat(String.valueOf(wave.get("WaveLength")));
 	        		        	
 	        	Wave w = new Wave(_wave, waveBegins, waveLength);
 	        	OM.addWave(w);
