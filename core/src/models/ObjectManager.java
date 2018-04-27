@@ -14,6 +14,7 @@ public class ObjectManager implements ObjectManagerInterface {
 	ArrayList<Enemy> Elist;
 	ArrayList<Bullet> bulletsPlayer;
 	ArrayList<Bullet> bulletsEnemy;
+	ArrayList<Wave> Wlist;
 	
 	public ObjectManager(){
 		player = new Player();
@@ -24,6 +25,7 @@ public class ObjectManager implements ObjectManagerInterface {
 		Elist = new ArrayList<Enemy>();
 		bulletsPlayer = new ArrayList<Bullet>();
 		bulletsEnemy = new ArrayList<Bullet>();
+		Wlist = new ArrayList<Wave>();
 	}
 	
 	@Override
@@ -94,6 +96,26 @@ public class ObjectManager implements ObjectManagerInterface {
 	@Override
 	public void removAllEnemyBullets() {
 		bulletsEnemy.clear();
+	}
+
+	@Override
+	public ArrayList<Wave> getWave() {
+		return Wlist;
+	}
+
+	@Override
+	public void addWave(Wave w) {
+		Wlist.add(w);
+	}
+
+	@Override
+	public void removeWave(Wave current) {
+		Wlist.remove(current);
+	}
+
+	@Override
+	public void addEnemy(Enemy e) {
+		Elist.add(e);		
 	}
 
 }
