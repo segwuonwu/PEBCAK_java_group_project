@@ -89,8 +89,8 @@ public class ObjectManager implements ObjectManagerInterface {
 	}
 
 	@Override
-	public void addEnemyBullet(Bullet e) {
-		bulletsEnemy.add(e);
+	public void addEnemyBullet(ArrayList<Bullet> e) {
+		bulletsEnemy.addAll(e);
 	}
 
 	@Override

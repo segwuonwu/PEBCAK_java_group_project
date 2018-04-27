@@ -20,7 +20,7 @@ public interface ObjectManagerInterface {
 	void removePlayerBullet(Bullet e);
 	void removeEnemyBullet(Bullet e);
 	void addPlayerBullet(Bullet e);
-	void addEnemyBullet(Bullet e);
+	void addEnemyBullet(ArrayList<Bullet> e);
 	void removAllEnemyBullets();
 	void addWave(Wave w);
 	void removeWave(Wave current);
