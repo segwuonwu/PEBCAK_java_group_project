@@ -29,111 +29,110 @@ public class EnemyFinalBoss extends Enemy {
 	}
 
 	private void extraBossStuff() {
-		this.movement = mFac.Create("zigzag", new Texture("minion.jpg"), movement.sprite.getX(), movement.sprite.getY(), -5f);
+		this.movement = mFac.Create("zigzag", new Texture("hitlerghost.png"), movement.sprite.getX(), movement.sprite.getY(),
+				-5f);
 	}
 
 	private void extraBossStuff2() {
-		this.movement = mFac.Create("stationary", new Texture("cat.jpg"), 300, 500, -5f);
+		this.movement = mFac.Create("stationary", new Texture("hitlerboss1.png"), 300, 500, -5f);
 	}
 
 	@Override
 	public ArrayList<Bullet> shoot(float delta) {
-		
+
 		timer += delta;
 		try {
-		if (timer > 10 && one == false) {
-			extraBossStuff();
-			one = true;
+			if (timer > 10 && one == false) {
+				extraBossStuff();
+				one = true;
+			}
+			if (timer > 20 && two == false) {
+				extraBossStuff2();
+				two = true;
+			}
+		} catch (Exception e) {
 		}
-		if (timer > 20 && two == false) {
-			extraBossStuff2();
-			two = true;
-		}
-		}catch (Exception e) {
-		}
-		
-		
-		
+
 		ArrayList<Bullet> b = new ArrayList<Bullet>();
 		Bullet newBullet = null;
 		lastShot += delta;
 		if ((lastShot - delta) >= 2f) {
 			newBullet = bFac.Create(getBulletMovement(), getBulletType(), this.movement.sprite.getX() - 10,
 					this.movement.sprite.getY() - 20, -100f);
-			if(newBullet != null)
+			if (newBullet != null)
 				b.add(newBullet);
 		}
 
 		if ((lastShot - delta) >= 2f) {
 			newBullet = bFac.Create(getBulletMovement(), getBulletType(), this.movement.sprite.getX(),
 					this.movement.sprite.getY() - 20, -100f);
-			if(newBullet != null)
+			if (newBullet != null)
 				b.add(newBullet);
 			if (timer > 7) {
 				if ((lastShot - delta) >= 2f) {
 					newBullet = bFac.Create(getBulletMovement(), getBulletType(), this.movement.sprite.getX() + 40,
 							this.movement.sprite.getY() - 20, -100f);
-					if(newBullet != null)
+					if (newBullet != null)
 						b.add(newBullet);
 				}
 
 				if ((lastShot - delta) >= 2f) {
 					newBullet = bFac.Create(getBulletMovement(), getBulletType(), this.movement.sprite.getX() + 20,
 							this.movement.sprite.getY() - 20, -100f);
-					if(newBullet != null)
+					if (newBullet != null)
 						b.add(newBullet);
 				}
 				if (timer > 20) {
 					if ((lastShot - delta) >= 2f) {
 						newBullet = bFac.Create("zigzag", "bulletA", this.movement.sprite.getX() + 40,
 								this.movement.sprite.getY() - 20, -100f);
-						if(newBullet != null)
+						if (newBullet != null)
 							b.add(newBullet);
 					}
 
 					if ((lastShot - delta) >= 2f) {
 						newBullet = bFac.Create("zigzag", "bulletB", this.movement.sprite.getX() + 100,
 								this.movement.sprite.getY() - 20, -100f);
-						if(newBullet != null)
+						if (newBullet != null)
 							b.add(newBullet);
 					}
 					if ((lastShot - delta) >= 2f) {
 						newBullet = bFac.Create("zigzag", "bulletA", this.movement.sprite.getX() + 150,
 								this.movement.sprite.getY() - 20, -100f);
-						if(newBullet != null)
+						if (newBullet != null)
 							b.add(newBullet);
 					}
 
 					if ((lastShot - delta) >= 2f) {
 						newBullet = bFac.Create("zigzag", "bulletB", this.movement.sprite.getX() + 175,
 								this.movement.sprite.getY() - 20, -100f);
-						if(newBullet != null)
+						if (newBullet != null)
 							b.add(newBullet);
 					}
 					if ((lastShot - delta) >= 2f) {
 						newBullet = bFac.Create("zigzag", "bulletA", this.movement.sprite.getX() + 250,
 								this.movement.sprite.getY() - 20, -100f);
-						if(newBullet != null)
+						if (newBullet != null)
 							b.add(newBullet);
 					}
 
 					if ((lastShot - delta) >= 2f) {
 						newBullet = bFac.Create(getBulletMovement(), getBulletType(), this.movement.sprite.getX() + 100,
 								this.movement.sprite.getY() - 20, -100f);
-						if(newBullet != null)
+						if (newBullet != null)
 							b.add(newBullet);
 					}
 					if ((lastShot - delta) >= 2f) {
 						newBullet = bFac.Create(getBulletMovement(), getBulletType(), this.movement.sprite.getX() + 110,
 								this.movement.sprite.getY() - 20, -100f);
-						if(newBullet != null)
+						if (newBullet != null)
 							b.add(newBullet);
 					}
 
 					if ((lastShot - delta) >= 2f) {
 						newBullet = bFac.Create(getBulletMovement(), getBulletType(), this.movement.sprite.getX() + 20,
 								this.movement.sprite.getY() - 20, -100f);
-						if(newBullet != null)
+						if (newBullet != null)
 							b.add(newBullet);
 					}
 				}
@@ -143,14 +142,14 @@ public class EnemyFinalBoss extends Enemy {
 				if ((lastShot - delta) >= 2f) {
 					newBullet = bFac.Create(getBulletMovement(), getBulletType(), this.movement.sprite.getX() + 30,
 							this.movement.sprite.getY() - 20, -100f);
-					if(newBullet != null)
+					if (newBullet != null)
 						b.add(newBullet);
 				}
 
 				if ((lastShot - delta) >= 2f) {
 					newBullet = bFac.Create(getBulletMovement(), getBulletType(), this.movement.sprite.getX() + 50,
 							this.movement.sprite.getY() - 20, -100f);
-					if(newBullet != null)
+					if (newBullet != null)
 						b.add(newBullet);
 				}
 
@@ -161,11 +160,11 @@ public class EnemyFinalBoss extends Enemy {
 		if ((lastShot - delta) >= 2f) {
 			newBullet = bFac.Create(getBulletMovement(), getBulletType(), this.movement.sprite.getX() + 17,
 					this.movement.sprite.getY() - 20, -100f);
-			if(newBullet != null)
+			if (newBullet != null)
 				b.add(newBullet);
 			lastShot = 0;
 		}
 
-				return b;
+		return b;
 	}
 }
