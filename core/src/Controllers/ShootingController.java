@@ -15,7 +15,8 @@ public class ShootingController implements ShootingControllerInterface {
 	private ObjectManagerInterface OM;
 	private float shootTimer = 0;
 	private float bombTimer = 0;
-
+	SoundController sc = SoundController.getSC();
+	
 	ShootingController(ObjectManagerInterface om){
 		OM = om;
 	}
@@ -31,6 +32,7 @@ public class ShootingController implements ShootingControllerInterface {
 		//ADD HEALTH CHEAT
 		if (Gdx.input.isKeyJustPressed(Keys.P)) {
 			player.health += 10;
+			sc.playHealth();
 		}
 
 		if(bombTimer > 30f)
@@ -41,14 +43,17 @@ public class ShootingController implements ShootingControllerInterface {
 			shootTimer = 0;
 			Bullet p = player.shoot();
 			OM.addPlayerBullet(p);
+			sc.playBullet();
 		}
 		
 		//DO MASSIVE DAMAGE TO ALL ENEMYS AND REMOVE ALL ENEMY BULLETS
 		if (Gdx.input.isKeyJustPressed(Keys.B) && player.hasBomb()) {
 			player.setBomb(false);
+			
 			ArrayList<Enemy> eToRemove = new ArrayList<Enemy>();
 
 			OM.removAllEnemyBullets();
+			sc.playCheatCode();
 			for(Enemy e : eList) {
 				if(e.damage(5, delta)) {
 					eToRemove.add(e);

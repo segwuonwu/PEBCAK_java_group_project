@@ -14,6 +14,7 @@ import view.MainGameClass;
 public class CollisionController implements CollisionControllerInterface{ 
 	float deathTimer = 0;
 	private ObjectManagerInterface OM;
+	SoundController sc = SoundController.getSC();
 
 	CollisionController(ObjectManagerInterface om){
 		OM = om;
@@ -47,6 +48,7 @@ public class CollisionController implements CollisionControllerInterface{
 					if (e.movement.sprite.getBoundingRectangle().overlaps(b.movement.sprite.getBoundingRectangle())) {
 						if(e.damage(1, delta)) {
 							EnemyobjectsToRemove.add(e);
+							sc.playenemyDestroy();
 						}
 						
 						OM.removePlayerBullet(b);
