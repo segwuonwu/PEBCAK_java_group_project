@@ -7,7 +7,7 @@
         "BulletMovement":"zigzag",
         "NumberOfEnemies":25,
         "SpawnTime":1,
-        "WaveLength":1
+        "WaveLength":"1"
      },
      "wave2":{
         "EnemyType":"EnemyMidBoss",
@@ -16,7 +16,7 @@
         "BulletMovement":"straight",
         "NumberOfEnemies":1,
         "SpawnTime":48,
-        "WaveLength":1
+        "WaveLength":"1"
      },
      "wave3":{
         "EnemyType":"EnemyB",
@@ -25,7 +25,7 @@
         "BulletMovement":"straight",
         "NumberOfEnemies":50,
         "SpawnTime":75,
-        "WaveLength":1
+        "WaveLength":"1"
      },
      "wave4":{
         "EnemyType":"EnemyFinalBoss",
@@ -34,7 +34,7 @@
         "BulletMovement":"straight",
         "NumberOfEnemies":1,
         "SpawnTime":90,
-        "WaveLength":1
+        "WaveLength":"1"
      }
   }
 }

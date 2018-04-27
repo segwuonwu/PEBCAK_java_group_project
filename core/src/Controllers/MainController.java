@@ -86,8 +86,8 @@ public class MainController implements MainControllerInterface{
 	        	//waveBegins is the time during gameplay that wave first appears
 	        	//waveLength is their lifespan on screen
 	        	//do something with these variables when waves are developed further
-	        	Long waveBegins = (Long) wave.get("SpawnTime");
-	        	Long waveLength = (Long) wave.get("WaveLength");
+	        	Float waveBegins = Float.parseFloat( (String) wave.get("SpawnTime"));
+	        	Float waveLength = Float.parseFloat( (String) wave.get("WaveLength"));
 	        		        	
 	        	Wave w = new Wave(_wave, waveBegins, waveLength);
 	        	OM.addWave(w);
