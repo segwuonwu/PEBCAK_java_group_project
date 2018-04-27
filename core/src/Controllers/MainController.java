@@ -15,6 +15,7 @@ import models.Bullet;
 import models.Enemy;
 import models.ObjectManagerInterface;
 import models.Player;
+import models.Wave;
 import view.MainGameClass;
 
 public class MainController implements MainControllerInterface{
@@ -24,15 +25,11 @@ public class MainController implements MainControllerInterface{
 	private CollisionControllerInterface CC;
 	private MovementControllerInterface MC;
 	private ShootingControllerInterface SC;
-	private ArrayList<ArrayList<Enemy>> waves;
+	private WaveControllerInterface WC;
 
-	
-	
 
 	float shootTimer; // for timing between pressing space and shooting bullets
 	
-	//FOR TESTING UNTIL WAVES ARE IMPLEMENTED
-	float waveTimer;
 
 	
 	public MainController(MainGameClass mainGameClass, ObjectManagerInterface om) {
@@ -41,20 +38,17 @@ public class MainController implements MainControllerInterface{
 		CC = new CollisionController(om);
 		MC = new MovementController(om);
 		SC = new ShootingController(om);
+		WC = new WaveController(om);
 		parent = mainGameClass;
-		waveTimer = 0;
-		
-		waves = new ArrayList<ArrayList<Enemy>>();
+				
+		parseJSON();
 
 	}
 	
 	
 	public void update(float delta) {
 		
-		waveTimer += delta;
 		
-		ArrayList<Enemy> eList = OM.getEnemyList();
-
 		//Update collision check if death
 		//Pretty sure we can access delta time from anywhere, consider removing it from methods
 		if(!CC.update(delta)) {
@@ -64,28 +58,10 @@ public class MainController implements MainControllerInterface{
 		//Update movement of all objects
 		MC.update();
 		SC.update(delta);
+		WC.update(delta);
 		
-		if(waveTimer >= 3) {
-			waveTimer = 0;
-			enemyWave();
-		}
 
-	}
-	
-	
-	//TRASH 
-	public void enemyWave() {
-		OM.addEnemy("EnemyA", "random", "bulletA", "straight");
-		OM.addEnemy("EnemyA", "straight", "bulletA", "straight");
-		OM.addEnemy("EnemyA", "zigzag", "bulletA", "straight");
-		OM.addEnemy("EnemyA", "random", "bulletA", "straight");
-		OM.addEnemy("EnemyA", "straight", "bulletA", "straight");
-		OM.addEnemy("EnemyA", "zigzag", "bulletA", "straight");
-		OM.addEnemy("EnemyA", "random", "bulletA", "straight");
-		OM.addEnemy("EnemyA", "straight", "bulletA", "straight");
-		OM.addEnemy("EnemyA", "zigzag", "bulletA", "straight");
-		OM.addEnemy("EnemyA", "random", "bulletA", "straight");
-		OM.addEnemy("EnemyA", "straight", "bulletA", "straight");
+
 	}
 	
 	
@@ -112,8 +88,11 @@ public class MainController implements MainControllerInterface{
 	        	//do something with these variables when waves are developed further
 	        	Long waveBegins = (Long) wave.get("SpawnTime");
 	        	Long waveLength = (Long) wave.get("WaveLength");
-	        	
-	        	this.waves.add(_wave);
+	        		        	
+	        	Wave w = new Wave(_wave, waveBegins, waveLength);
+	        	OM.addWave(w);
+				System.out.println("ADD WAVE");
+
 	        }
 
 			
