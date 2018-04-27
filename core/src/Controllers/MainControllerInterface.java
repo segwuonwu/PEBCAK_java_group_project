@@ -1,5 +1,5 @@
 package Controllers;
 
 public interface MainControllerInterface {
-	public void update(float delta);
+	public int update(float delta);
 }

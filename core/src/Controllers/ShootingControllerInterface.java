@@ -1,5 +1,5 @@
 package Controllers;
 
 public interface ShootingControllerInterface {
-	public void update(float delta);
+	public boolean update(float delta);
 }

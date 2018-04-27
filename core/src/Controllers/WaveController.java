@@ -19,7 +19,7 @@ public class WaveController implements WaveControllerInterface {
 	}
 
 	@Override
-	public void update(float delta) {
+	public boolean update(float delta) {
 		waveTimer += delta;
 		spawnTimer += delta;
 
@@ -50,6 +50,10 @@ public class WaveController implements WaveControllerInterface {
 			// TODO Auto-generated catch block
 			System.out.println(e);
 		}
+		if(W.isEmpty()) {
+		return false;
+		}
+		return true;
 
 	}
 
