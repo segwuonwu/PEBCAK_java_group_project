@@ -65,15 +65,17 @@ public abstract class Enemy {
 		return false;
 	}
 	
-	public Bullet shoot(float delta) {
+	public ArrayList<Bullet> shoot(float delta) {
+		ArrayList<Bullet> b = new ArrayList<Bullet>();
 		Bullet newBullet = null;
 		lastShot += delta;
 		if( (lastShot - delta) >= 2f ) {
 		newBullet = bFac.Create(getBulletMovement(), getBulletType(), this.movement.sprite.getX() + 10, this.movement.sprite.getY() - 20, -100f);
 		lastShot = 0;
 		}
-		
-		return newBullet;
+		if(newBullet != null)
+			b.add(newBullet);
+		return b;
 	}
 
 	public String getBulletMovement() {

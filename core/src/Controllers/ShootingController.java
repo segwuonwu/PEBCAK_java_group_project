@@ -50,7 +50,7 @@ public class ShootingController implements ShootingControllerInterface {
 
 			OM.removAllEnemyBullets();
 			for(Enemy e : eList) {
-				if(e.damage(50, delta)) {
+				if(e.damage(5, delta)) {
 					eToRemove.add(e);
 				}
 			}
@@ -60,8 +60,11 @@ public class ShootingController implements ShootingControllerInterface {
 
 		//UPDATE ENEMY BULLET LIST
 			for(Enemy e : eList) {
-				Bullet b = e.shoot(delta);
-				if(b != null) {
+				ArrayList<Bullet> b = new ArrayList<Bullet>();
+				ArrayList<Bullet> bleh = e.shoot(delta);
+				if(!bleh.isEmpty())
+					b.addAll(bleh);
+				if(!b.isEmpty()) {
 					OM.addEnemyBullet(b);
 				}
 			}

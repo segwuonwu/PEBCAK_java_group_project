@@ -33,7 +33,7 @@
         "BulletType":"bulletB",
         "BulletMovement":"straight",
         "NumberOfEnemies":1,
-        "SpawnTime":"90",
+        "SpawnTime":"10",
         "WaveLength":"1"
      }
   }
