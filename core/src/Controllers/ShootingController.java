@@ -21,13 +21,17 @@ public class ShootingController implements ShootingControllerInterface {
 	}
 	
 	@Override
-	public void update(float delta) {
+	public boolean update(float delta) {
 		//shoot timer is used to slow down rate of player bullets
 		shootTimer += delta;
 		bombTimer += delta;
 		Player player = OM.getPlayer();
 		ArrayList<Enemy> eList = OM.getEnemyList();
-
+		
+		//ADD HEALTH CHEAT
+		if (Gdx.input.isKeyJustPressed(Keys.P)) {
+			player.health += 10;
+		}
 
 		if(bombTimer > 30f)
 			player.setBomb(true);
@@ -61,6 +65,10 @@ public class ShootingController implements ShootingControllerInterface {
 					OM.addEnemyBullet(b);
 				}
 			}
+			if(eList.isEmpty()) {
+				return true;
+			}
+	return false;
 	}
 
 }

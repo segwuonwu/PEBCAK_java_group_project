@@ -53,6 +53,7 @@ public class MainScreen implements Screen {
 	int showtime = 0;
 	float deltaTime = 0;
 	CharSequence str;
+	int gamestate;
 
 
 	ObjectManagerInterface OM;
@@ -75,6 +76,7 @@ public class MainScreen implements Screen {
 
 		OM = new ObjectManager();
 		controller = new MainController(parent, OM);
+		gamestate = 0;
 		
 
 	}
@@ -88,8 +90,22 @@ public class MainScreen implements Screen {
 	@Override
 	public void render(float delta) {
 
-				
-		controller.update(delta);
+			
+		gamestate = controller.update(delta);
+		if(gamestate == 1) {
+			//win
+			parent.changeScreen(MainGameClass.VICTORY);
+
+			
+		}
+		else if(gamestate == -1) {
+			//lose
+			parent.changeScreen(MainGameClass.PREFERENCES);
+		}
+			//keep going
+		
+		
+		
 		Gdx.gl.glClearColor(1, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 

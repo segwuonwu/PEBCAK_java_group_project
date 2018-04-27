@@ -26,7 +26,7 @@ public class MainController implements MainControllerInterface{
 	private MovementControllerInterface MC;
 	private ShootingControllerInterface SC;
 	private WaveControllerInterface WC;
-
+	private boolean win;
 
 	float shootTimer; // for timing between pressing space and shooting bullets
 	
@@ -42,26 +42,33 @@ public class MainController implements MainControllerInterface{
 		parent = mainGameClass;
 				
 		parseJSON();
+		
+		win = false;
 
 	}
 	
 	
-	public void update(float delta) {
+	public int update(float delta) {
 		
 		
 		//Update collision check if death
 		//Pretty sure we can access delta time from anywhere, consider removing it from methods
 		if(!CC.update(delta)) {
-			//Change view if dead, FIND WAY TO PUSH THAT TO VIEW
-			parent.changeScreen(MainGameClass.PREFERENCES);
+			//Change view if dead
+			return -1;
 		}
 		//Update movement of all objects
 		MC.update();
-		SC.update(delta);
-		WC.update(delta);
+		win = SC.update(delta);
+		if(!WC.update(delta)) {
+			//win condition
+			if(win) {
+				return 1;
+			}
+		}
 		
-
-
+		//keep going game not over
+		return 0;
 	}
 	
 	
@@ -84,7 +91,7 @@ public class MainController implements MainControllerInterface{
 	        	}
 	        	
 	        	//waveBegins is the time during gameplay that wave first appears
-	        	//waveLength is their lifespan on screen
+	        	//waveLength is their time between spawns on screen
 	        	//do something with these variables when waves are developed further
 	        	Float waveBegins = Float.parseFloat( (String) wave.get("SpawnTime"));
 	        	Float waveLength = Float.parseFloat( (String) wave.get("WaveLength"));
